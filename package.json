@@ -4,7 +4,8 @@
   "main": "src/main.js",
   "type": "module",
   "scripts": {
-    "build": "node src/main.js"
+    "build": "node src/main.js",
+    "clean": "bash scripts/cleanweb.bash"
   },
   "keywords": [],
   "author": "",
