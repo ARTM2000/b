@@ -7,8 +7,8 @@ import { Config } from "./config.js";
 
 export class Renderer {
 	#templatesFolderPath = import.meta.dirname + "/../templates/";
-	#targetFolderPath = import.meta.dirname + "/../../web/";
-	#JSONDumpFilePath = import.meta.dirname + "/../../web/data.json";
+	#targetFolderPath = import.meta.dirname + "/../../docs/";
+	#JSONDumpFilePath = import.meta.dirname + "/../../docs/data.json";
 	#blogPosts;
 	#config;
 
