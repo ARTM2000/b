@@ -1,0 +1,12 @@
+# This is the configuration file for project setup
+# config it as required
+
+full_repo_name: 'artm2000/github-action'
+domain: 'https://www.example.com'
+repo_pat: '<optional>'
+content:
+  page_title: My Personal Blog
+  introduction: |
+    Hi, this is a test case for showing introduction on the blog main page 😁
+author_usernames:
+  ARTM2000: A.Tanoomandian
