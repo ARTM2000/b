@@ -1,0 +1,13 @@
+# This is the configuration file for project setup
+# config it as required
+
+full_repo_name: 'artm2000/blog'
+domain: 'https://artm2000.github.com/blog'
+repo_pat: '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'
+content:
+  page_title: My Personal Blog
+  introduction: |
+    # Hi, I'm _Alireza_ and Welcome
+    ### Let's discover stories together!
+author_usernames:
+  ARTM2000: Alireza Tanoomandian
