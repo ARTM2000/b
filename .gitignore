@@ -1,5 +1,2 @@
 .DS_Store
 node_modules
-web/*.json
-web/*.html
-web/**/*.html
