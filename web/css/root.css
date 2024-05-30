@@ -1,0 +1,102 @@
+* {
+	/* Or what selector you need */
+	unicode-bidi: plaintext;
+	text-align: start; /* Align text automatically left/right*/
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+strong,
+b {
+	font-family: "Roboto", "Vazirmatn", sans-serif;
+	font-optical-sizing: auto;
+	font-weight: 700;
+	font-style: normal;
+}
+
+p, li {
+	font-family: "Roboto", "Vazirmatn", sans-serif;
+	font-optical-sizing: auto;
+	font-weight: normal;
+	font-style: normal;
+	line-height: 1.7;
+}
+
+.content h1,
+.content h2,
+.content h3,
+.content h4,
+.content h5,
+.content h6 {
+	margin-top: 0.7em;
+}
+
+h1 {
+	font-size: 3rem;
+}
+
+#post-title {
+	font-size: 3.5rem;
+}
+
+.content h2 {
+	font-size: 2.5rem;
+}
+
+.content p,
+.content li {
+	font-size: 1.2rem;
+}
+
+.content img {
+	margin: 5px auto;
+	border-radius: 10px;
+	display: block;
+	max-width: 100%;
+	/* cursor: zoom-in; */
+}
+
+pre code {
+	padding: 10px 15px;
+	border-radius: 10px;
+}
+
+blockquote {
+	font-size: 1.4em;
+	width: 97%;
+	margin: 30px auto;
+	font-style: italic;
+	padding: 1.2em 10px 1.2em 75px;
+	border-left: 8px solid #494949;
+	line-height: 1.6;
+	position: relative;
+	background: #8080802c;
+	border-radius: 10px;
+}
+
+blockquote::before {
+	font-family: Arial;
+	content: "\201C";
+	color: #494949;
+	font-size: 4em;
+	position: absolute;
+	left: 10px;
+	top: 5px;
+}
+
+blockquote::after {
+	content: "";
+}
+
+#home-intro {
+	text-wrap: wrap;
+	overflow-wrap: break-word;
+}
+
+#home-intro h1 {
+	font-size: 4.3rem;
+}
