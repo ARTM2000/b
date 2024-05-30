@@ -18,10 +18,11 @@ jobs:
                   node-version: 22
             - run: npm ci
             - run: npm run build
-            - uses: EndBug/add-and-commit@v9
-              with:
-                add: web
-                fetch: true
-                message: blog updated
+            - run: |
+                git config user.name "github-aciton[bot]"
+                git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+                git add .
+                git commit -m "web: blog updated"
+                git push
 
     
