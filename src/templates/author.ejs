@@ -1,0 +1,12 @@
+<a href="<%= post.user.page %>" style="text-decoration: none;" target="_blank" rel="follow">
+    <div class="row mt-4 mb-2 ml-2">
+        <div class="col-2 col-sm-2 col-lg-1 px-1">
+            <img class="d-block" src="<%= post.user.avatar_url %>" width="55px" style="border-radius: 30px; margin-left: 10px;" />
+        </div>
+        <div class="col-9 px-3 px-sm-1 px-md-1 px-lg-4 px-xl-1">
+            <p class="text-body-secondary my-0 mx-md-0" style="font-size: 18px;"><%= post.user.name %></p>
+            <small class="text-body-secondary" ><%= post.formattedPublishedAt %></small>
+        </div>
+    </div>
+</a>
+<hr>

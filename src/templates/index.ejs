@@ -1,0 +1,39 @@
+<%- include('head.ejs') %>
+<body>
+    <div class="container mt-5 p-3">
+        <div id="home-intro" class="w-100 p-2 sm-12 col-12">
+            <%- content.introduction %>
+        </div>
+        <div class="row">
+            <div class="col-lg-8 col-sm-12">
+                <div class="w-100 p-2 mt-3 mb-3" id="blog_list">
+                    <% if (posts.length === 0) { %>
+                     <h4 class="text-body-emphasis my-4 text-center">
+                        We'll come soon 😉
+                     </h4>
+                    <% } %>
+                    <% posts.forEach(post => { %>
+                    <!-- item list -->
+                        <div class="card mt-2 mb-3 border border-2" style="border-radius: 10px;">
+                            <a href="<%= post.url %>" rel="follow" style="text-decoration: none; cursor: pointer;">
+                                <div class="card-body">
+                                    <small class="text-body-secondary" ><%= post.formattedPublishedAt %></small><br/>
+                                    <h4 class="card-title text-body-emphasis mt-2"><%= post.title %></h4>
+                                    <p class="card-text text-body-secondary mb-1"><%= post.subTitle %></p>
+                                    <p class="cart-text text-body-emphasis mt-1 mb-2">Read more &#8594;</p>
+                                    <% if (post.categories.length > 0) { %>
+                                        <% post.categories.forEach((c, i) => { %>
+                                            <div class="py-1 px-2 d-inline-block" style="font-size: smaller; border-radius: 100px; background-color: <%= c.color %>20; color: <%= c.color %>;" ><%= c.name %></div>
+                                        <% }) %>
+                                    <% } %>
+                                </div>
+                            </a>
+                        </div>
+                    <% }) %>
+                </div>
+            </div>
+        </div>
+    </div>
+    <%- include('footer.ejs') %>
+</body>
+</html>
