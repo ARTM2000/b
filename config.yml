@@ -1,10 +1,10 @@
 # This is the configuration file for project setup
 # config it as required
 
-full_repo_name: 'artm2000/blog'
-domain: 'https://artm2000.github.io/blog'
+full_repo_name: 'artm2000/b'
+domain: 'https://artm2000.github.io/b'
 content:
-  page_title: My Personal Blog
+  page_title: MetaReadMe
   introduction: |
     # Hi, I'm _Alireza_ and Welcome
     ### Let's discover stories together!

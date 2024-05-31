@@ -3,7 +3,6 @@ name: update-blog
 run-name: updating weblog pages
 
 on:
-    push:
     workflow_dispatch:
     schedule:
         - cron: '0 0 * * *' 
