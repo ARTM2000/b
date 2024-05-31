@@ -2,8 +2,7 @@
 # config it as required
 
 full_repo_name: 'artm2000/blog'
-domain: 'https://artm2000.github.com/blog'
-repo_pat: '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'
+domain: 'https://artm2000.github.io/blog'
 content:
   page_title: My Personal Blog
   introduction: |
