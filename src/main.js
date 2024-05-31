@@ -20,6 +20,9 @@ async function renderPages() {
     // create blog posts files from ejs template
     await r.renderBlogPosts()
 
+    // create 404 page
+    await r.render404Page()
+
     // dump data to json file for dynamic data features
     await r.dumpDataToJSON()
 }

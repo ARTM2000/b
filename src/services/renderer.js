@@ -82,6 +82,25 @@ export class Renderer {
 		}
 	}
 
+	async render404Page() {
+		const posts = await this.#blogPosts.getMainPagePosts();
+		const postsFor404 = posts.slice(0, 5);
+
+		const templatePath = "404.ejs";
+		const targetPath = "404.html";
+
+		const content = this.#config.getContent();
+
+		const payload = {
+			posts: postsFor404.map((p) => ({
+				...p,
+				url: this.#getPostUrlLink(p),
+			})),
+			content: content,
+		};
+		this.#renderTemplate(templatePath, targetPath, payload);
+	}
+
 	async #cleanAllBlogPostFiles() {
 		for (const file of fs.readdirSync(this.#blogPostsDirPath)) {
 			if (file.match(/\.html$/)) {

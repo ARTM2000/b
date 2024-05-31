@@ -1,0 +1,35 @@
+<%- include('head.ejs') %>
+<body>
+    <div class="container my-5">
+        <pre class="mt-1 mb-2 col-12 col-md-8 mx-auto">
+            <code class="bash language-bash">
+#!/usr/bin/env bash
+#
+#        ___    _______     ___   
+#       /   )  (  __   )   /   )  
+#      / /) |  | (  )  |  / /) |  
+#     / (_) (_ | | /   | / (_) (_ 
+#    (____   _)| (/ /) |(____   _)
+#         ) (  |   / | |     ) (  
+#         | |  |  (__) |     | |  
+#         (_)  (_______)     (_)  
+#                    
+# Sorry! 
+# This page doesn't exist anymore 
+#                    
+            </code>
+        </pre>
+        <div class="col-12 col-md-8 mx-auto">
+            <% if (posts.length > 0) { %>
+                <h4 class="text-body-emphasis mb-4">Here is other available contents: </h4>
+            <% } %>
+            <% posts.forEach(post => { %>
+            <!-- item list -->
+            <%- include('post-item.ejs', { post: post }) %>
+            <% }) %>
+            <%- include('back-to-home.ejs') %>
+        </div>
+    </div>
+    <%- include('footer.ejs') %>
+</body>
+</html>
