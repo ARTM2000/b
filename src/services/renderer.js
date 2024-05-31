@@ -9,6 +9,7 @@ export class Renderer {
 	#templatesFolderPath = import.meta.dirname + "/../templates/";
 	#targetFolderPath = import.meta.dirname + "/../../docs/";
 	#JSONDumpFilePath = import.meta.dirname + "/../../docs/data.json";
+	#blogPostsDirPath = this.#targetFolderPath + "blog/";
 	#blogPosts;
 	#config;
 
@@ -39,6 +40,9 @@ export class Renderer {
 	}
 
 	async renderBlogPosts() {
+		// first clean all blog posts
+		await this.#cleanAllBlogPostFiles()
+		
 		const templatePath = "post.ejs";
 		const allPosts = await this.#blogPosts.getAllPosts();
 		const content = this.#config.getContent();
@@ -75,6 +79,14 @@ export class Renderer {
 
 			const targetPath = this.#getPostUrlLink(post);
 			this.#renderTemplate(templatePath, targetPath, payload);
+		}
+	}
+
+	async #cleanAllBlogPostFiles() {
+		for (const file of fs.readdirSync(this.#blogPostsDirPath)) {
+			if (file.match(/\.html$/)) {
+				fs.unlinkSync(this.#blogPostsDirPath + file)
+			}
 		}
 	}
 
