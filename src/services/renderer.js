@@ -32,7 +32,7 @@ export class Renderer {
 		const payload = {
 			posts: (await this.#blogPosts.getMainPagePosts()).map((p) => ({
 				...p,
-				url: this.#getPostUrlLink(p),
+				url: `${content.domain}/${this.#getPostUrlLink(p)}`,
 			})),
 			content: content,
 		};
@@ -65,7 +65,7 @@ export class Renderer {
 				const nextPost = allPosts[i - 1];
 				payload.nextPost = {
 					title: nextPost.title,
-					url: this.#getPostUrlLink(nextPost),
+					url: `${content.domain}/${this.#getPostUrlLink(nextPost)}`,
 				};
 			}
 
@@ -73,7 +73,7 @@ export class Renderer {
 				const prevPost = allPosts[i + 1];
 				payload.prevPost = {
 					title: prevPost.title,
-					url: this.#getPostUrlLink(prevPost),
+					url: `${content.domain}/${this.#getPostUrlLink(prevPost)}`,
 				};
 			}
 
@@ -94,7 +94,7 @@ export class Renderer {
 		const payload = {
 			posts: postsFor404.map((p) => ({
 				...p,
-				url: this.#getPostUrlLink(p),
+				url: `${content.domain}/${this.#getPostUrlLink(p)}`,
 			})),
 			content: content,
 		};
