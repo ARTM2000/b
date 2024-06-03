@@ -162,9 +162,11 @@ export class Renderer {
 		return value
 			.replace(/\s{1,}/g, "-")
 			.replace(/@/g, "")
+			.replace(/\?/g, "")
 			.replace(/\$/g, "")
 			.replace(/!/g, "")
 			.replace(/#/g, "")
+			.replace(/-{2,}/g, "-")
 			.toLowerCase();
 	}
 
