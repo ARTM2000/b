@@ -100,3 +100,7 @@ blockquote::after {
 #home-intro h1 {
 	font-size: 4.3rem;
 }
+
+#home-intro h2 {
+	font-size: 3.8rem;
+}
