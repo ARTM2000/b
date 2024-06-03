@@ -1,4 +1,4 @@
-# This is the configuration file for project setup
+# This is the configuration file for the project setup
 # config it as required
 
 full_repo_name: 'artm2000/b'
@@ -6,8 +6,8 @@ domain: 'https://m8e.ir'
 content:
   page_title: MetaReadMe
   introduction: |
-    # Hi, I'm _Alireza_ and 
-    ## Welcome to MetaReadMe
+    # Hi, I'm _Alireza_ and Welcome
+    ## To _Meta ReadMe_
     ### Let's discover stories together!
 author_usernames:
   ARTM2000: Alireza Tanoomandian
