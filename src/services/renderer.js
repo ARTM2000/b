@@ -219,7 +219,7 @@ export class Renderer {
 		return new showdown.Converter({
 			tables: true,
 			emoji: true,
-			noHeaderId: true,
+			noHeaderId: false,
 			smoothLivePreview: true,
 			tasklists: true,
 		}).makeHtml(markdown);
