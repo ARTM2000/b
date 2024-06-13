@@ -34,7 +34,6 @@
         const matchRes = window.location.href.match(/\?p=(\d+)/);
         if (!matchRes) {
             window.location = 'https://m8e.ir'
-            return
         }
 
         const postId = matchRes[1];
