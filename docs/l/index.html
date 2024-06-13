@@ -31,7 +31,13 @@
         <h5>Redirecting...</h5>
     </div>
     <script>
-        const postId = window.location.href.match(/\?p=(\d+)/)[1];
+        const matchRes = window.location.href.match(/\?p=(\d+)/);
+        if (!matchRes) {
+            window.location = 'https://m8e.ir'
+            return
+        }
+
+        const postId = matchRes[1];
         const postsMappingUrl = JSON.parse('{"2328841453":"https://m8e.ir/blog/2328841453-you-want-to-create-a-saas-here-is-important-key-factors-part1.html"}');
         const url = postsMappingUrl[postId];
         if (!!url) {

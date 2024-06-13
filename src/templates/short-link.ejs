@@ -4,7 +4,13 @@
         <h5>Redirecting...</h5>
     </div>
     <script>
-        const postId = window.location.href.match(/\?p=(\d+)/)[1];
+        const matchRes = window.location.href.match(/\?p=(\d+)/);
+        if (!matchRes) {
+            window.location = '<%= content.domain %>'
+            return
+        }
+
+        const postId = matchRes[1];
         const postsMappingUrl = JSON.parse('<%- postsMap %>');
         const url = postsMappingUrl[postId];
         if (!!url) {
