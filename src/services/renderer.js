@@ -154,6 +154,24 @@ export class Renderer {
 		fs.writeFileSync(this.#JSONDumpFilePath, JSON.stringify(d));
 	}
 
+	async createShortUrlLinkPage() {
+		const templatePath = 'short-link.ejs';
+		const targetPath = 'l/index.html'
+		const content = this.#config.getContent();
+
+		const allPosts = await this.#blogPosts.getAllPosts();
+		const postsMap = {};
+		for (const p of allPosts) {
+			postsMap[p.id] = `${content.domain}/${this.#getPostUrlLink(p)}`
+		}
+
+		const payload = {
+			postsMap: JSON.stringify(postsMap),
+			content: content,
+		};
+		this.#renderTemplate(templatePath, targetPath, payload);
+	}
+
 	#getPostUrlLink(post) {
 		return `blog/${post.id}-${this.#prettyUrl(post.title)}.html`;
 	}

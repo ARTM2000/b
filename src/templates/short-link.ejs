@@ -1,0 +1,18 @@
+<%- include('head.ejs') %>
+<body>
+    <div class="container my-5">
+        <h5>Redirecting...</h5>
+    </div>
+    <script>
+        const postId = window.location.href.match(/\?p=(\d+)/)[1];
+        const postsMappingUrl = JSON.parse('<%- postsMap %>');
+        const url = postsMappingUrl[postId];
+        if (!!url) {
+            window.location = url;
+        } else {
+            window.location = '<%= content.domain %>'
+        }
+    </script>
+    <%- include('footer.ejs') %>
+</body>
+</html>

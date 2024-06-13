@@ -25,6 +25,9 @@ async function renderPages() {
 
     // dump data to json file for dynamic data features
     await r.dumpDataToJSON()
+
+    // create short link page
+    await r.createShortUrlLinkPage()
 }
 
 renderPages()
