@@ -7,7 +7,6 @@
         const matchRes = window.location.href.match(/\?p=(\d+)/);
         if (!matchRes) {
             window.location = '<%= content.domain %>'
-            return
         }
 
         const postId = matchRes[1];
