@@ -4,8 +4,11 @@ run-name: updating weblog pages
 
 on:
     workflow_dispatch:
-    schedule:
-        - cron: '0 0 * * *' 
+    issues: 
+        types: 
+            - closed
+            - edited
+            - deleted
 
 jobs:
     update-blog:
