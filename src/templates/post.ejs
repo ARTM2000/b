@@ -23,7 +23,7 @@
                         style="border-radius: 10px; cursor: pointer;"
                         onclick="document.execCommand('copy')"
                     >
-                        <img src="http://localhost:5500/img/copy.png" style="margin-right: 3px;" width="20px" alt="copy" /><span id="link"> <%= shortLink %></span>
+                        <img src="<%= content.domain %>/img/copy.png" style="margin-right: 3px;" width="20px" alt="copy" /><span id="link"> <%= shortLink %></span>
                     </p>
                 </div>
                 <%- include('author.ejs') %>
