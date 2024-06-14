@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://m8e.ir/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://m8e.ir/css/bootstrap.rtl.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet" type="text/css" />
+    <script src="https://m8e.ir/js/bootstrap.bundle.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://m8e.ir/css/root.css">
+    <link rel="stylesheet" href="https://m8e.ir/css/default.min.css">
+    <link rel="stylesheet" href="https://m8e.ir/css/github-dark.min.css">
+    <script src="https://m8e.ir/js/highlight.min.js"></script>
+    <meta name="robots" content="index, follow" />
+    <meta name="description" content="You want to create a SaaS? here is important key factors - part2" />
+    <meta property="og:title" content="You want to create a SaaS? here is important key factors - part2" />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://m8e.ir/blog/2345716869-you-want-to-create-a-saas-here-is-important-key-factors-part2.html" />
+    <!-- <meta property="og:image" content="https://ia.media-imdb.com/images/rock.jpg" /> -->
+    <meta name="twitter:title" content="You want to create a SaaS? here is important key factors - part2">
+    <meta name="twitter:description" content="">
+    <!-- <meta name="twitter:image" content=" http://euro-travel-example.com/thumbnail.jpg"> -->
+    <!-- <meta name="twitter:card" content="summary_large_image"> -->
+    <title>MetaReadMe | You want to create a SaaS? here is important key factors - part2</title>
+</head>
+<body>
+    <div class="container mt-2 mb-5 p-3">
+        <div class="row">
+            <div class="col-md-9 col-lg-9 col-sm-12 mx-auto">
+                <button 
+    onclick="window.location = 'https://m8e.ir'" 
+    class="btn text-secondary d-block my-4 p-0" 
+    style="cursor: pointer; font-size: .9em;"
+    >&#8592; Back to home page</button>
+                
+                    
+                        <div class="py-1 px-2 d-inline-block" style="font-size: smaller; border-radius: 100px; background-color: #05FAFA20; color: #05FAFA;" >methodology</div>
+                    
+                        <div class="py-1 px-2 d-inline-block" style="font-size: smaller; border-radius: 100px; background-color: #F8E20820; color: #F8E208;" >SaaS</div>
+                    
+                        <div class="py-1 px-2 d-inline-block" style="font-size: smaller; border-radius: 100px; background-color: #CF145120; color: #CF1451;" >cloud</div>
+                    
+                
+                <h1 id="post-title" class="text-body-emphasis">You want to create a SaaS? here is important key factors - part2</h1>
+                <small class="text-body-secondary"></small>
+                <a href="https://github.com/ARTM2000" style="text-decoration: none;" target="_blank" rel="follow">
+    <div class="row mt-4 mb-2 ml-2">
+        <div class="col-2 col-sm-2 col-lg-1 px-1">
+            <img class="d-block" src="https://avatars.githubusercontent.com/u/50656840?v=4" width="55px" style="border-radius: 30px; margin-left: 10px;" />
+        </div>
+        <div class="col-9 px-3 px-sm-1 px-md-1 px-lg-4 px-xl-1">
+            <p class="text-body-secondary my-0 mx-md-0" style="font-size: 18px;">Alireza Tanoomandian</p>
+            <small class="text-body-secondary" >2024-06-11</small>
+        </div>
+    </div>
+</a>
+<hr>
+                <div class="content mt-3">
+                    <p><img src="https://github.com/ARTM2000/b/assets/50656840/9d6750f5-b579-4bc4-a620-c01602f70d49" alt="saas-main-cover" /></p>
+<p>As discussed in a previous <a href="https://m8e.ir/blog/2328841453-you-want-to-create-a-saas-here-is-important-key-factors-part1.html">post</a>, we talk about <em>"What is SaaS?"</em> and its <em>pros & cons</em>. After all, we continued by talking about factors and practices that a <strong>SaaS application</strong> should have and introduced <em><a href="https://12factor.net/">The Twelve Factors app</a></em> and <em><a href="https://domenicoluciani.com/2021/10/30/15-factor-app.html">15 factors app</a></em> along together.</p>
+<p>Here we continue to explain remained factors:</p>
+<h3 id="6processes">6. Processes</h3>
+<blockquote>
+  <p>Execute the app as one or more <strong>stateless</strong> processes</p>
+</blockquote>
+<p>In the big picture, every application executes in one or more processes in the target execution environment, where it is running on your local system (e.g. your computer or laptop) or the production environment with more resources. This factor emphasizes that each process should be <em>stateless</em>; it means that any data that the process needs should be stored in the <em><a href="https://m8e.ir/blog/2328841453-you-want-to-create-a-saas-here-is-important-key-factors-part1.html#4backingservices">backing services</a></em>, such as a database or cache service.</p>
+<p>By designing the processes in this way, we can keep the whole platform state more robust, we also make these required shared data more available and prevent their loss in case of code deployment, config change, or system scaling for system high-load peak during specific times.</p>
+<p>Although we can use an in-memory cache beside the running process to decrease the response time, for example loading an asset (without a backing service), it's not recommended.</p>
+<h3 id="7portbinding">7. Port binding</h3>
+<blockquote>
+  <p>Export services via port binding</p>
+</blockquote>
+<p>Some used technologies for creating a web app or services that do not expose themselves, but they use a container such as <a href="http://httpd.apache.org/"><em>Apache HTTPD</em></a> or <a href="https://www.f5.com/go/product/welcome-to-nginx"><em>Nginx</em></a> or for java apps run inside <a href="https://tomcat.apache.org/"><em>Tomcat</em></a>. This factor said that despite using this kind of technology or not, to export a service we have to use port binding, whether you use <code>HTTP</code> protocol or others.</p>
+<p>It's important to note that by using <em>port binding</em>  approach we are capable of using our service as a <strong>backing service</strong> for other services by providing a URL in the consumer app <a href="https://m8e.ir/blog/2328841453-you-want-to-create-a-saas-here-is-important-key-factors-part1.html#3configuration">configuration</a>.</p>
+<h3 id="8concurrency">8. Concurrency</h3>
+<blockquote>
+  <p>Scale out via the process model</p>
+</blockquote>
+<p>Before talking about concurrency, we have to know precisely about the <em>process model</em>. By the process model, or better to say <em>unix process model</em>, we tend to say that each process should have the following properties in the case of web or SaaS app:</p>
+<ul>
+<li>Each process should have a single entry point, meaning that there's only one command to invoke the process</li>
+<li>Processes should be scalable as the load increased</li>
+<li>Each process fault shouldn't affect other processes</li>
+<li>Long-running or resource-intensive tasks should be handled in a separate process to improve the performance and responsiveness of the main application</li>
+<li>Some dedicated tasks like data processing, queuing, or communication with external services preferred to operate on different processes</li>
+</ul>
+<p>This model's importance appears when we want to scale out the system; This means that adding more concurrency is a simple and reliable operation. </p>
+<p>Keep in mind that these kinds of apps should not daemonize or write PID files to manage their lifetime. Instead, the system's process manager (such as systemd, the available cloud process manager) manages the output stream (like logs), responds to crashed processes, and handles controlled restarts and shutdowns.</p>
+<h3 id="9disposability">9. Disposability</h3>
+<blockquote>
+  <p>Maximize robustness with fast startup and graceful shutdown</p>
+</blockquote>
+<p>If you can start or stop the app at any time with near to no pain, you did this factor very well. Plus robustness, it helps you to make code or config changes so fast in different environments. </p>
+<p>Ideally, a process should run so fast, and the time from the running moment of the command or starting the process, until everything is ready to use, should be too short, only a few seconds. It brings us to a more agile situation that helps to release or scale up easily.</p>
+<p>Shutting down a process should be considered as it might interrupt an ongoing task or request and cause data corruption or change the data to an invalid state. It's common to listen to the <a href="https://www.gnu.org/software/libc/manual/html_node/Termination-Signals.html">termination signals</a> like the <code>SIGTERM</code> signal (or <code>SIGINT</code> in development). After receiving this signal in sync processes should stop accepting new requests and wait until the ongoing tasks reach a termination state (most often the task ends), then exiting. </p>
+<p>For tasks that may not be completed promptly, such as long polling, the consumer should attempt to reconnect to ensure continued operation.</p>
+<p>In async and worker processes, graceful shutdown is achieved by returning the current task to the work queue. For example, in message brokers like <em>RabbitMQ</em> the worker should send <code>NACK</code> which returns the message to the broker to handle by another process.</p>
+<p>Most problems that might arise by incorrect shutdown are listed as follows:</p>
+<ul>
+<li>Database deadlocks</li>
+<li>Data corruption</li>
+<li>Resource leaks</li>
+<li>Application crashes</li>
+<li>System instability</li>
+<li>Security vulnerabilities</li>
+<li>Delayed startup</li>
+<li>Increased maintenance overhead</li>
+</ul>
+<h3 id="10devprodparity">10. Dev/prod parity</h3>
+<blockquote>
+  <p>Keep development, staging, and production as similar as possible</p>
+</blockquote>
+<p><img src="https://github.com/ARTM2000/b/assets/50656840/9fdef0e8-af99-4f30-8b87-ac64b0139ea4" alt="before-devops-after-devops" />
+<small>Source: <a href="https://turnoff.us/geek/before-devops-after-devops/">turnoff.us</a></small></p>
+<p>Software running typically occurs in various environments, including local developer machines for code writing and modification, staging or UAT environments for testing and validation, and finally production servers for deployment and live operation. Despite the common properties and requirements of these environments, some differences exist. For example, in local development, you are running the same <a href="https://m8e.ir/blog/2328841453-you-want-to-create-a-saas-here-is-important-key-factors-part1.html#1codebase">codebase</a> as one that will run in other environments, but for the required fast pace of developing and testing, you might need different setup on <em>backing services</em>, <em>config</em>, etc. or run the code on other OS (e.g. you are developing on macOS but the production running on Ubuntu server).</p>
+<p>On the other hand, sadly, the developer might only change the code or config but others, like operation engineers, are responsible for deploying the changes. </p>
+<p>This factor said that the difference between the running environments should be as much as possible; For example, using the same stack on environment. It means that don't use SQLite for the local development and PostgreSQL on production or don't use local memory caching in local and use Memcached on other environments. Nowadays, by using containerization technologies, such as Docker or <a href="https://www.vagrantup.com/">Vagrant</a>, it is easily achievable to keep the used backing services technology the same. The developer should be involved in the deployment to see the app's behavior and if some actions are required, do them right in time.</p>
+<p>Another important note is to keep the technologies' versions in different environments the same. Most of the used languages and technologies are always in progress to bring new features, fix issues, and enhance their capabilities. Although it's a practice to make their changes <em>backward compatible</em>, it's reasonable not to accept the risk of outer dependencies changes on the fly and instead specify what versions we are using.</p>
+<h3 id="11logs">11. Logs</h3>
+<blockquote>
+  <p>Treat logs as event streams</p>
+</blockquote>
+<p>Software without logs is like a black box system. It's impossible to trace, monitor, or debug activities without logs that are typically separated into three categories:</p>
+<ol>
+<li>Developer logs</li>
+<li>Business event logs</li>
+<li>Audit logs</li>
+</ol>
+<p>Each type has its properties (e.g. storing strategy, privacy &amp; sensitivity, and the way of using), but in the first step, we should gather the logs from the app. This factor said, "Logs are the <em>stream</em> of <strong>aggregated</strong>, <strong>time-ordered</strong> events collected from the output streams of all running processes and backing services". In some software, logs are stored in files that rotate at a specific time, and in others, logs are unbuffered and written to <code>stdout</code>. </p>
+<p>It is crucial to emphasize that the application is not responsible for managing or directing its output stream. This responsibility lies with the execution environment. In local development, developers will view this stream in the foreground, at staging and production environments, these process logs will be captured by the execution environment, grouped with other processes' logs, and routed to one or more final destinations for <em>viewing</em> and long-term <em>archival</em>. For example, if you are using docker to manage your environment you can use open-source log routers like <a href="https://docs.docker.com/config/containers/logging/fluentd/"><em>fluentd</em></a>, or if you plan to store your data in ElasticSearch, you can use <a href="https://www.elastic.co/beats/filebeat"><em>FileBeat</em></a> to gather all logs and ship them to ElasticSearch for further processes.</p>
+<p>Keep in mind that well-structured and informative logs are essential for effectively responding to potential issues and identifying opportunities for improvement.</p>
+<h3 id="12adminprocesses">12. Admin processes</h3>
+<blockquote>
+  <p>Run admin/management tasks as one-off processes</p>
+</blockquote>
+<p>Every app has processes for regular business-related tasks, such as handling web requests. There might exist some that will help developers to do <em>one-off</em> <strong>administrative</strong> or <strong>maintenance</strong> tasks for the app, like:</p>
+<ul>
+<li>running database migration</li>
+<li>running specific jobs</li>
+<li>running a console (a.k.a. REPL) to run arbitrary code, inspect the app's models against the live database, view current configuration, etc.</li>
+</ul>
+<p>These processes should be run in a similar environment as the regular long-running process that ships with the same codebase and config on the same release version. In local development, developers run the one-off admin processes inside the shell command at the codebase directory, and on production, they will use SSH or other remote command execution mechanisms to access the execution environment for running the process.</p>
+<h2 id="thatsalltwelvefactors">That's all twelve factors</h2>
+<p>We discussed the 12 Factors app in the current and previous posts and explained them precisely to make you familiar with the facts and practices that make software development core characteristics of the software as a service. But there are three more factors that we will explore together in the future. I hope you find this content helpful and use the practices in your future projects!</p>
+                </div>
+                <a href="https://github.com/ARTM2000" style="text-decoration: none;" target="_blank" rel="follow">
+    <div class="row mt-4 mb-2 ml-2">
+        <div class="col-2 col-sm-2 col-lg-1 px-1">
+            <img class="d-block" src="https://avatars.githubusercontent.com/u/50656840?v=4" width="55px" style="border-radius: 30px; margin-left: 10px;" />
+        </div>
+        <div class="col-9 px-3 px-sm-1 px-md-1 px-lg-4 px-xl-1">
+            <p class="text-body-secondary my-0 mx-md-0" style="font-size: 18px;">Alireza Tanoomandian</p>
+            <small class="text-body-secondary" >2024-06-11</small>
+        </div>
+    </div>
+</a>
+<hr>
+                <div class="row">
+                    <div class="col-12 col-md-6 my-3">
+                        
+                            <a href="/https://m8e.ir/blog/2328841453-you-want-to-create-a-saas-here-is-important-key-factors-part1.html" style="text-decoration: none;">
+                                <div class="px-3 py-3 border border-1 text-body-emphasis" style="border-radius: 10px;">
+                                    <h5>You want to create a SaaS? here is important key factors - part1</h5>
+                                    <p class="my-1">&#171; Previous Post</p>
+                                </div>
+                            </a>
+                        
+                    </div>
+                    <div class="col-12 col-md-6 my-3">
+                        
+                    </div>
+                </div>
+                <button 
+    onclick="window.location = 'https://m8e.ir'" 
+    class="btn text-secondary d-block my-4 p-0" 
+    style="cursor: pointer; font-size: .9em;"
+    >&#8592; Back to home page</button>
+            </div>
+        </div>
+    </div>
+    <footer>
+	<div class="container mt-5">
+		<hr />
+        <div class="row my-4 px-1">
+            <div class="col-12">
+                <code class="text-body-emphasis">Created with ☕. Powered by GitHub</code>
+            </div>
+        </div>
+        <div class="d-inline-block px-2">
+            <a href="https://github.com/ARTM2000" target="_blank">
+                <img src="https://m8e.ir/img/github-mark-white.png" width="30px" alt="github" />
+            </a>
+        </div>
+        <div class="d-inline-block px-2">
+            <a href="https://linkedin.com/in/alirezatanoomandian" target="_blank">
+                <img src="https://m8e.ir/img/linkedin.png" width="30px" alt="github" />
+            </a>
+        </div>
+        <br><br><br><br><br>
+	</div>
+	<script defer>
+		hljs.highlightAll();
+	</script>
+	<script defer>
+		// const darkModeActive = document.querySelector('html').dataset.bsTheme === 'dark'
+		document.querySelectorAll("table").forEach((element) => {
+			element.className +=
+				" table table-striped table-bordered border border-3";
+		});
+		document.querySelectorAll("tbody").forEach((element) => {
+			element.className += " table-group-divider";
+		});
+	</script>
+</footer>
+
+</body>
