@@ -56,7 +56,7 @@ h1 {
 	margin: 5px auto;
 	border-radius: 10px;
 	display: block;
-	max-width: 100%;
+	width: 100%;
 	/* cursor: zoom-in; */
 }
 
@@ -67,29 +67,18 @@ pre code {
 
 blockquote {
 	font-size: 1.4em;
-	width: 97%;
+	width: 100%;
 	margin: 30px auto;
 	font-style: italic;
-	padding: 1.2em 10px 1.2em 75px;
-	border-left: 8px solid #494949;
-	line-height: 1.6;
+	padding: .5em 20px;
+	border-left: 8px solid #7a7a7a;
 	position: relative;
-	background: #8080802c;
+	background: #80808013;
 	border-radius: 10px;
 }
 
-blockquote::before {
-	font-family: Arial;
-	content: "\201C";
-	color: #494949;
-	font-size: 4em;
-	position: absolute;
-	left: 10px;
-	top: 5px;
-}
-
-blockquote::after {
-	content: "";
+blockquote p {
+	margin: 5px 10px;
 }
 
 #home-intro {

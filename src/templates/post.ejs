@@ -2,7 +2,7 @@
 <body>
     <div class="container mt-2 mb-5 p-3">
         <div class="row">
-            <div class="col-md-9 col-lg-9 col-sm-12 mx-auto">
+            <div class="col-md-9 col-lg-8 col-sm-12 mx-auto">
                 <%- include('back-to-home.ejs') %>
                 <% if (post.categories.length > 0) { %>
                     <% post.categories.forEach((c, i) => { %>
@@ -14,6 +14,17 @@
                 <%- include('author.ejs') %>
                 <div class="content mt-3">
                     <%- post.body %>
+                </div>
+                <div class="my-2">
+                    <% const shortLink = content.domain + '/l/?p=' + post.id; %>
+                    <p 
+                        id="post-link"
+                        class="d-inline-block my-2 py-2 px-2 border border-2 text-body-secondary" 
+                        style="border-radius: 10px; cursor: pointer;"
+                        onclick="document.execCommand('copy')"
+                    >
+                        <img src="http://localhost:5500/img/copy.png" style="margin-right: 3px;" width="20px" alt="copy" /><span id="link"> <%= shortLink %></span>
+                    </p>
                 </div>
                 <%- include('author.ejs') %>
                 <div class="row">
@@ -42,5 +53,49 @@
             </div>
         </div>
     </div>
+    <script>
+        document.querySelectorAll(".content a").forEach(a => {
+            if (a.href.indexOf("<%= content.domain %>") > -1) {
+                a.rel = "follow"
+            } else {
+                a.target = "_blank";
+                a.rel = "nofollow";
+            }
+        });
+
+        document.querySelectorAll(".content blockquote").forEach(b => {
+            if (b.children.length > 1) {
+                const blockQuotes = []
+                for (let i = 0; i < b.children.length; i++) {
+                    const newB = document.createElement("blockquote")
+                    const ch = document.createElement(b.children[i].tagName.toLowerCase())
+                    ch.innerHTML = b.children[i].innerHTML;
+                    newB.appendChild(ch);
+                    blockQuotes.push(newB);
+                }
+
+                b.replaceWith(...blockQuotes);
+            }
+        });
+
+        document.getElementById('post-link').addEventListener('copy', (e) => {
+            e.preventDefault();
+            if (e.clipboardData) {
+                e.clipboardData.setData('text/plain', '<%- shortLink %>')
+                document.getElementById('link').innerText = " copied!"
+                setTimeout(() => {
+                    document.getElementById('link').innerText = " <%- shortLink %>";
+                }, 800)
+            }
+        });
+
+        document.querySelectorAll('.content img').forEach(img => {
+            const next = img.nextElementSibling;
+            if (!!next && next.tagName.toLowerCase() === "small") {
+                next.style = "display: block; font-size: 13px"
+                next.className += " text-body-secondary";
+            }
+        })
+    </script>
     <%- include('footer.ejs') %>
 </body>

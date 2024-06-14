@@ -10,7 +10,8 @@
     <script src="https://m8e.ir/js/bootstrap.bundle.min.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="https://m8e.ir/css/root.css">
+    <!-- <link rel="stylesheet" href="https://m8e.ir/css/root.css"> -->
+    <link rel="stylesheet" href="/css/root.css">
     <link rel="stylesheet" href="https://m8e.ir/css/default.min.css">
     <link rel="stylesheet" href="https://m8e.ir/css/github-dark.min.css">
     <script src="https://m8e.ir/js/highlight.min.js"></script>
@@ -29,7 +30,7 @@
 <body>
     <div class="container mt-2 mb-5 p-3">
         <div class="row">
-            <div class="col-md-9 col-lg-9 col-sm-12 mx-auto">
+            <div class="col-md-9 col-lg-8 col-sm-12 mx-auto">
                 <button 
     onclick="window.location = 'https://m8e.ir'" 
     class="btn text-secondary d-block my-4 p-0" 
@@ -64,12 +65,9 @@
 <h2 id="whatissaas">What is SaaS?</h2>
 <p>Here are some definitions:</p>
 <blockquote>
-  <p>Software as a Service (SaaS) is a cloud-based software model that delivers applications to end-users through an internet browser. 
-  Source: <a href="https://aws.amazon.com/what-is/saas/">AWS</a></p>
-  <p>Software-as-a-service, or SaaS for short, is a cloud-based method of providing software to users. SaaS users subscribe to an application rather than purchasing it once and installing it. Users can log into and use a SaaS application from any compatible device over the Internet.
-  Source: <a href="https://www.cloudflare.com/learning/cloud/what-is-saas/">CloudFlare</a></p>
-  <p>Software as a service (SaaS) allows users to connect to and use cloud-based apps over the Internet. Common examples are email, calendaring, and office tools (such as Microsoft Office 365).
-  Source: <a href="https://azure.microsoft.com/en-us/resources/cloud-computing-dictionary/what-is-saas">Microsoft Azure</a></p>
+  <p>Software as a Service (SaaS) is a cloud-based software model that delivers applications to end-users through an internet browser.  Source: <a href="https://aws.amazon.com/what-is/saas/">AWS</a></p>
+  <p>Software-as-a-service, or SaaS for short, is a cloud-based method of providing software to users. SaaS users subscribe to an application rather than purchasing it once and installing it. Users can log into and use a SaaS application from any compatible device over the Internet. Source: <a href="https://www.cloudflare.com/learning/cloud/what-is-saas/">CloudFlare</a></p>
+  <p>Software as a service (SaaS) allows users to connect to and use cloud-based apps over the Internet. Common examples are email, calendaring, and office tools (such as Microsoft Office 365). Source: <a href="https://azure.microsoft.com/en-us/resources/cloud-computing-dictionary/what-is-saas">Microsoft Azure</a></p>
 </blockquote>
 <p>As you can see in common, software served through the cloud to the user without installation on the user's computer is called SaaS, and the user still needs a tool, like a web browser or a mobile app to reach it at the cost of subscription, freemium, or free. Sound familiar!</p>
 <p><img src="https://github.com/ARTM2000/b/assets/50656840/64ed427b-1128-4101-a0de-2da36fcceea1" alt="saas-illustration-cloudflare" />
@@ -143,6 +141,17 @@
 <p>This is the first part of the article. The following will be published soon!</p>
 <p>Hope you enjoyed it!</p>
                 </div>
+                <div class="my-2">
+                    
+                    <p 
+                        id="post-link"
+                        class="d-inline-block my-2 py-2 px-2 border border-2 text-body-secondary" 
+                        style="border-radius: 10px; cursor: pointer;"
+                        onclick="document.execCommand('copy')"
+                    >
+                        <img src="http://localhost:5500/img/copy.png" style="margin-right: 3px;" width="20px" alt="copy" /><span id="link"> https://m8e.ir/l/?p=2328841453</span>
+                    </p>
+                </div>
                 <a href="https://github.com/ARTM2000" style="text-decoration: none;" target="_blank" rel="follow">
     <div class="row mt-4 mb-2 ml-2">
         <div class="col-2 col-sm-2 col-lg-1 px-1">
@@ -178,6 +187,50 @@
             </div>
         </div>
     </div>
+    <script>
+        document.querySelectorAll(".content a").forEach(a => {
+            if (a.href.indexOf("https://m8e.ir") > -1) {
+                a.rel = "follow"
+            } else {
+                a.target = "_blank";
+                a.rel = "nofollow";
+            }
+        });
+
+        document.querySelectorAll(".content blockquote").forEach(b => {
+            if (b.children.length > 1) {
+                const blockQuotes = []
+                for (let i = 0; i < b.children.length; i++) {
+                    const newB = document.createElement("blockquote")
+                    const ch = document.createElement(b.children[i].tagName.toLowerCase())
+                    ch.innerHTML = b.children[i].innerHTML;
+                    newB.appendChild(ch);
+                    blockQuotes.push(newB);
+                }
+
+                b.replaceWith(...blockQuotes);
+            }
+        });
+
+        document.getElementById('post-link').addEventListener('copy', (e) => {
+            e.preventDefault();
+            if (e.clipboardData) {
+                e.clipboardData.setData('text/plain', 'https://m8e.ir/l/?p=2328841453')
+                document.getElementById('link').innerText = " copied!"
+                setTimeout(() => {
+                    document.getElementById('link').innerText = " https://m8e.ir/l/?p=2328841453";
+                }, 800)
+            }
+        });
+
+        document.querySelectorAll('.content img').forEach(img => {
+            const next = img.nextElementSibling;
+            if (!!next && next.tagName.toLowerCase() === "small") {
+                next.style = "display: block; font-size: 13px"
+                next.className += " text-body-secondary";
+            }
+        })
+    </script>
     <footer>
 	<div class="container mt-5">
 		<hr />
@@ -193,7 +246,7 @@
         </div>
         <div class="d-inline-block px-2">
             <a href="https://linkedin.com/in/alirezatanoomandian" target="_blank">
-                <img src="https://m8e.ir/img/linkedin.png" width="30px" alt="github" />
+                <img src="https://m8e.ir/img/linkedin.png" width="30px" alt="linkedin" />
             </a>
         </div>
         <br><br><br><br><br>
