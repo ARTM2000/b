@@ -30,10 +30,18 @@ export class Renderer {
 		content.introduction = this.#convertMarkdownToHtml(content.introduction);
 
 		const payload = {
-			posts: (await this.#blogPosts.getMainPagePosts()).map((p) => ({
-				...p,
-				url: `${content.domain}/${this.#getPostUrlLink(p)}`,
-			})),
+			posts: (await this.#blogPosts.getMainPagePosts()).map((p) => {
+				const subTitleWords = p.subTitle.split(/\s{1,}/g);
+				const maxSubTitleWords = 20;
+
+				return {
+					...p,
+					subTitle: subTitleWords.length > maxSubTitleWords ? 
+						subTitleWords.splice(0, maxSubTitleWords).join(' ') + ' ...' : 
+						p.subTitle,
+					url: `${content.domain}/${this.#getPostUrlLink(p)}`,
+				}
+			}),
 			content: content,
 		};
 		this.#renderTemplate(templatePath, targetPath, payload);
