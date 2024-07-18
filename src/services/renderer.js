@@ -58,10 +58,14 @@ export class Renderer {
 
 		for (let i = 0; i < allPosts.length; i++) {
 			const post = allPosts[i];
+
 			const subTitleWords = post.subTitle.split(/\s{1,}/g);
 			post.subTitlePreview = subTitleWords.length > maxSubTitlePreviewWords ? 
 				subTitleWords.splice(0, maxSubTitlePreviewWords).join(' ') + ' ...' : 
-				post.subTitle
+				post.subTitle;
+
+			const postImages = post.body.match(/!\[[^\]]*\]\((.*?)\s*("(?:.*[^"])")?\s*\)/);
+			const mainImage = !!postImages ? postImages[1] : ''
 
 			const payload = {
 				post: { ...post, body: this.#convertMarkdownToHtml(post.body) },
@@ -71,6 +75,7 @@ export class Renderer {
 					metaTitle: post.title,
 					metaSubTitle: post.subTitle || "",
 					metaUrl: `${content.metaUrl}/${this.#getPostUrlLink(post)}`,
+					metaImage: mainImage,
 				},
 				prevPost: null,
 				nextPost: null,

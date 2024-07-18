@@ -63,6 +63,7 @@ export class Config {
         content.introduction = data.content.introduction
         content.pageTitle = data.content.page_title
         content.metaTitle = data.content.page_title
+        content.metaImage = '';
         content.metaUrl = data.domain
         content.domain = data.domain
 
