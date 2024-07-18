@@ -10,7 +10,11 @@
                     <% }) %>
                 <% } %>
                 <h1 id="post-title" class="text-body-emphasis"><%= post.title %></h1>
-                <small class="text-body-secondary"><%= post.subTitle %></small>
+                <small class="text-body-secondary">
+                    <strong style="font-size: 15px;">Summary. </strong>
+                    <span id="summary-content"><%= post.subTitlePreview %> </span>
+                    <span><strong style="font-size: 15px;cursor: pointer;" id="summary-action">more</strong></span>
+                </small>
                 <%- include('author.ejs') %>
                 <div class="content mt-3">
                     <%- post.body %>
@@ -94,6 +98,19 @@
             if (!!next && next.tagName.toLowerCase() === "small") {
                 next.style = "display: block; font-size: 13px"
                 next.className += " text-body-secondary";
+            }
+        })
+
+        const fullSummary = '<%- post.subTitle %>';
+        const previewSummary = '<%- post.subTitlePreview %>';
+        document.getElementById('summary-action').addEventListener('click', (e) => {
+            console.log(e.target.innerText);
+            if (e.target.innerText === 'more') {
+                document.getElementById('summary-content').innerText = fullSummary;
+                e.target.innerText = 'less';
+            } else {
+                document.getElementById('summary-content').innerText = previewSummary;
+                e.target.innerText = 'more';
             }
         })
     </script>

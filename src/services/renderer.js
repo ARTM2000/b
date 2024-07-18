@@ -54,9 +54,15 @@ export class Renderer {
 		const templatePath = "post.ejs";
 		const allPosts = await this.#blogPosts.getAllPosts();
 		const content = this.#config.getContent();
+		const maxSubTitlePreviewWords = 30;
 
 		for (let i = 0; i < allPosts.length; i++) {
 			const post = allPosts[i];
+			const subTitleWords = post.subTitle.split(/\s{1,}/g);
+			post.subTitlePreview = subTitleWords.length > maxSubTitlePreviewWords ? 
+				subTitleWords.splice(0, maxSubTitlePreviewWords).join(' ') + ' ...' : 
+				post.subTitle
+
 			const payload = {
 				post: { ...post, body: this.#convertMarkdownToHtml(post.body) },
 				content: {

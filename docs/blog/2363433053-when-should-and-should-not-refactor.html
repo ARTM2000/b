@@ -53,7 +53,11 @@
                     
                 
                 <h1 id="post-title" class="text-body-emphasis">When should and should not REFACTOR?</h1>
-                <small class="text-body-secondary">The article discusses the importance of understanding the project complexity matrix for effective project management. It highlights the benefits and risks associated with refactoring code. Refactoring offers advantages like increased productivity and bug identification but carries risks such as regressions and dormant bugs. The author advises against refactoring without clear objectives, for fun, or when time is limited. Instead, refactoring should be considered in scenarios like dealing with a small scope, code complexity hindering development, shifting product requirements, performance optimization, or adopting new technologies. The article emphasizes the need for strategic refactoring, considering the system, team, and business context to improve code quality and support future development.</small>
+                <small class="text-body-secondary">
+                    <strong style="font-size: 15px;">Summary. </strong>
+                    <span id="summary-content">The article discusses the importance of understanding the project complexity matrix for effective project management. It highlights the benefits and risks associated with refactoring code. Refactoring offers advantages like increased ... </span>
+                    <span><strong style="font-size: 15px;cursor: pointer;" id="summary-action">more</strong></span>
+                </small>
                 <a href="https://github.com/ARTM2000" style="text-decoration: none;" target="_blank" rel="follow">
     <div class="row mt-4 mb-2 ml-2">
         <div class="col-2 col-sm-2 col-lg-1 px-1">
@@ -231,6 +235,19 @@ It's noticeable that <strong>before refactoring starts, the system should have p
             if (!!next && next.tagName.toLowerCase() === "small") {
                 next.style = "display: block; font-size: 13px"
                 next.className += " text-body-secondary";
+            }
+        })
+
+        const fullSummary = 'The article discusses the importance of understanding the project complexity matrix for effective project management. It highlights the benefits and risks associated with refactoring code. Refactoring offers advantages like increased productivity and bug identification but carries risks such as regressions and dormant bugs. The author advises against refactoring without clear objectives, for fun, or when time is limited. Instead, refactoring should be considered in scenarios like dealing with a small scope, code complexity hindering development, shifting product requirements, performance optimization, or adopting new technologies. The article emphasizes the need for strategic refactoring, considering the system, team, and business context to improve code quality and support future development.';
+        const previewSummary = 'The article discusses the importance of understanding the project complexity matrix for effective project management. It highlights the benefits and risks associated with refactoring code. Refactoring offers advantages like increased ...';
+        document.getElementById('summary-action').addEventListener('click', (e) => {
+            console.log(e.target.innerText);
+            if (e.target.innerText === 'more') {
+                document.getElementById('summary-content').innerText = fullSummary;
+                e.target.innerText = 'less';
+            } else {
+                document.getElementById('summary-content').innerText = previewSummary;
+                e.target.innerText = 'more';
             }
         })
     </script>

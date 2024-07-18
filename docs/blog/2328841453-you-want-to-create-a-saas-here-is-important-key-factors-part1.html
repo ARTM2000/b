@@ -55,7 +55,11 @@
                     
                 
                 <h1 id="post-title" class="text-body-emphasis">You want to create a SaaS? here is important key factors - part1</h1>
-                <small class="text-body-secondary">Software as a Service (SaaS) is a cloud-based software model that delivers applications to end-users through an internet browser. SaaS vendors host services and applications for customers to access on-demand. With a SaaS offering, you do not have to think about how the service is maintained or how the underlying infrastructure is managed</small>
+                <small class="text-body-secondary">
+                    <strong style="font-size: 15px;">Summary. </strong>
+                    <span id="summary-content">Software as a Service (SaaS) is a cloud-based software model that delivers applications to end-users through an internet browser. SaaS vendors host services and applications for customers to access on-demand. ... </span>
+                    <span><strong style="font-size: 15px;cursor: pointer;" id="summary-action">more</strong></span>
+                </small>
                 <a href="https://github.com/ARTM2000" style="text-decoration: none;" target="_blank" rel="follow">
     <div class="row mt-4 mb-2 ml-2">
         <div class="col-2 col-sm-2 col-lg-1 px-1">
@@ -237,6 +241,19 @@
             if (!!next && next.tagName.toLowerCase() === "small") {
                 next.style = "display: block; font-size: 13px"
                 next.className += " text-body-secondary";
+            }
+        })
+
+        const fullSummary = 'Software as a Service (SaaS) is a cloud-based software model that delivers applications to end-users through an internet browser. SaaS vendors host services and applications for customers to access on-demand. With a SaaS offering, you do not have to think about how the service is maintained or how the underlying infrastructure is managed';
+        const previewSummary = 'Software as a Service (SaaS) is a cloud-based software model that delivers applications to end-users through an internet browser. SaaS vendors host services and applications for customers to access on-demand. ...';
+        document.getElementById('summary-action').addEventListener('click', (e) => {
+            console.log(e.target.innerText);
+            if (e.target.innerText === 'more') {
+                document.getElementById('summary-content').innerText = fullSummary;
+                e.target.innerText = 'less';
+            } else {
+                document.getElementById('summary-content').innerText = previewSummary;
+                e.target.innerText = 'more';
             }
         })
     </script>
