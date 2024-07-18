@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://m8e.ir/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://m8e.ir/css/bootstrap.rtl.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet" type="text/css" />
+    <script src="https://m8e.ir/js/bootstrap.bundle.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- <link rel="stylesheet" href="https://m8e.ir/css/root.css"> -->
+    <link rel="stylesheet" href="/css/root.css">
+    <link rel="stylesheet" href="https://m8e.ir/css/default.min.css">
+    <link rel="stylesheet" href="https://m8e.ir/css/github-dark.min.css">
+    <script src="https://m8e.ir/js/highlight.min.js"></script>
+    <meta name="robots" content="index, follow" />
+    <meta name="description" content="The article discusses the importance of understanding the project complexity matrix for effective project management. It highlights the benefits and risks associated with refactoring code. Refactoring offers advantages like increased productivity and bug identification but carries risks such as regressions and dormant bugs. The author advises against refactoring without clear objectives, for fun, or when time is limited. Instead, refactoring should be considered in scenarios like dealing with a small scope, code complexity hindering development, shifting product requirements, performance optimization, or adopting new technologies. The article emphasizes the need for strategic refactoring, considering the system, team, and business context to improve code quality and support future development." />
+    <meta property="og:title" content="When should and should not REFACTOR?" />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://m8e.ir/blog/2363433053-when-should-and-should-not-refactor.html" />
+    <!-- <meta property="og:image" content="https://ia.media-imdb.com/images/rock.jpg" /> -->
+    <meta name="twitter:title" content="When should and should not REFACTOR?">
+    <meta name="twitter:description" content="The article discusses the importance of understanding the project complexity matrix for effective project management. It highlights the benefits and risks associated with refactoring code. Refactoring offers advantages like increased productivity and bug identification but carries risks such as regressions and dormant bugs. The author advises against refactoring without clear objectives, for fun, or when time is limited. Instead, refactoring should be considered in scenarios like dealing with a small scope, code complexity hindering development, shifting product requirements, performance optimization, or adopting new technologies. The article emphasizes the need for strategic refactoring, considering the system, team, and business context to improve code quality and support future development.">
+    <!-- <meta name="twitter:image" content=" http://euro-travel-example.com/thumbnail.jpg"> -->
+    <!-- <meta name="twitter:card" content="summary_large_image"> -->
+    <title>MetaReadMe | When should and should not REFACTOR?</title>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-8DRQJK9YQB"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-8DRQJK9YQB');
+    </script>
+</head>
+<body>
+    <div class="container mt-2 mb-5 p-3">
+        <div class="row">
+            <div class="col-md-9 col-lg-8 col-sm-12 mx-auto">
+                <button 
+    onclick="window.location = 'https://m8e.ir'" 
+    class="btn text-secondary d-block my-4 p-0" 
+    style="cursor: pointer; font-size: .9em;"
+    >&#8592; Back to home page</button>
+                
+                    
+                        <div class="py-1 px-2 d-inline-block" style="font-size: smaller; border-radius: 100px; background-color: #CF145120; color: #CF1451;" >cloud</div>
+                    
+                        <div class="py-1 px-2 d-inline-block" style="font-size: smaller; border-radius: 100px; background-color: #0A254120; color: #0A2541;" >system maintenance</div>
+                    
+                
+                <h1 id="post-title" class="text-body-emphasis">When should and should not REFACTOR?</h1>
+                <small class="text-body-secondary">The article discusses the importance of understanding the project complexity matrix for effective project management. It highlights the benefits and risks associated with refactoring code. Refactoring offers advantages like increased productivity and bug identification but carries risks such as regressions and dormant bugs. The author advises against refactoring without clear objectives, for fun, or when time is limited. Instead, refactoring should be considered in scenarios like dealing with a small scope, code complexity hindering development, shifting product requirements, performance optimization, or adopting new technologies. The article emphasizes the need for strategic refactoring, considering the system, team, and business context to improve code quality and support future development.</small>
+                <a href="https://github.com/ARTM2000" style="text-decoration: none;" target="_blank" rel="follow">
+    <div class="row mt-4 mb-2 ml-2">
+        <div class="col-2 col-sm-2 col-lg-1 px-1">
+            <img class="d-block" src="https://avatars.githubusercontent.com/u/50656840?v=4" width="55px" style="border-radius: 30px; margin-left: 10px;" />
+        </div>
+        <div class="col-9 px-3 px-sm-1 px-md-1 px-lg-4 px-xl-1">
+            <p class="text-body-secondary my-0 mx-md-0" style="font-size: 18px;">Alireza Tanoomandian</p>
+            <small class="text-body-secondary" >2024-06-20</small>
+        </div>
+    </div>
+</a>
+<hr>
+                <div class="content mt-3">
+                    <p><img src="https://github.com/user-attachments/assets/bbdc1430-4cb0-4673-8a8c-ba5551b2a96a" alt="buildingbridges" /></p>
+<p><strong>Refactoring</strong> is the <em>art</em> of keeping the <em>output</em> and <em>input</em> of the system the same while you make the system or process much <em>smoother</em>. Each software is created for a purpose; some for university projects, automating a boring process, a startup idea, or an enterprise solution. The key differences are their complexity and time-to-live (TTL). Although measuring the complexity of a software project is not too easy to formulate, there are some factors we can consider and explore to have the same perspective in general, like:</p>
+<ul>
+<li>Problem scope</li>
+<li>Number of dependencies involved, either internal or external</li>
+<li>Cost</li>
+<li>Stability requirement</li>
+<li>Type of the data in use</li>
+<li>Security concerns</li>
+<li>etc. </li>
+</ul>
+<p>After almost clarifying the complexity, consider the software's TTL as the next step. In a world where we face so many changes every day, having a clear expectation of the software project can help you better design and develop the project. </p>
+<h2 id="softwarecategorybyttlandcomplexity">Software category by TTL and complexity</h2>
+<p><img src="https://github.com/user-attachments/assets/a1863b7f-701f-4156-a933-b1a39cfd251e" alt="ttl-vs-complexity" /></p>
+<ol>
+<li><p><strong>Short TTL, Low Complexity;</strong> These kinds of software have a narrow and well-defined scope and you can find a proofed solution for them easily. They have a short TTL and low complexity is their core property but you might have seen them more. For example, a simple tik-tack-toe game, or a bash script for rotating a single log file as a temporary solution.</p></li>
+<li><p><strong>Long TTL, Low Complexity;</strong> By keeping the complexity the same and increasing the TTL, we have to consider more terms, like technology in use, predict future events and requirement changes, developer experience, and more. Hopefully, the complexity level is still low, and accidental events or mistakes cannot cause a huge problem but it's a good practice for more complex systems.</p></li>
+<li><p><strong>Short TTL, High Complexity;</strong> Think about media-file analytics software, a real-time data analytics dashboard, etc. They are some complex software projects but they might replaced by other tools.</p></li>
+<li><p><strong>Long TTL, High Complexity;</strong> These are the software we probably use each day or act as backing services for our daily interaction in the real or digital world. Unlike case (2), as complexity grows, an inappropriate decision or mistake could cost you a lot. So, you have to manage changes and decisions accurately.</p></li>
+</ol>
+<h2 id="whendoesrefactoringcomeupforthesoftware">When does refactoring come up for the software?</h2>
+<p>By the time, you start to write software or develop a new feature, you have to choose your best option as the problem is understood. In the long term, the software growth or the requirements and environment change can cause a new problem or a performance issue to occur and you have to consider new ways or change the worked solution.</p>
+<p><img src="https://github.com/user-attachments/assets/043d5a56-a5f4-4543-a1fa-be4e64c95a5c" alt="swe-at-google life-span-and-the-importance-of-upgrades" />
+<small>Software engineering at Google - Figure 1-1</small></p>
+<p>As you can see in the chart, the importance of upgrading projects jumped when the lifetime goes from a year to decades. </p>
+<blockquote>
+  <p>For any project that didn't plan for upgrades from the start, that transition is very painful…
+  "Software Engineering at Google" </p>
+</blockquote>
+<p>So, it's clear that the refactoring is a part of the system upgrade and it came up front in the long-lived software project, more than a year! Thus, the (2) and (4) cases with the long TTL are the kinds of projects that seem a stage for refactoring! Now we know the place, but <em>why should we refactor??</em></p>
+<h2 id="whyshouldwerefactor">Why should we refactor?</h2>
+<p>Every decision has costs and benefits, and you as a software engineer, developer, technical leader, or engineering manager should consider their tradeoff and then participate in making the decision together. 
+It's noticeable that <strong>before refactoring starts, the system should have proper test coverage first</strong>. </p>
+<p>Here can encounter the benefits of refactoring:</p>
+<ul>
+<li><strong>Increasing the developer's productivity:</strong> It's about making the code easier to understand. As far as the code is clear and well-structured, not only you and your team but everyone in the engineering team can easily onboard and contribute. Thus, more efficient communication through codebase questions occurred as every teammate had a solid understanding of the issue.</li>
+<li><strong>Greater ease in identifying bugs:</strong> This will split into two parts: tracking down bugs and solving them. By breaking up complex statements into smaller, bite-sized pieces and extracting logic into a new function, you can both build up a better understanding of the code's duty and isolate the bugs.</li>
+</ul>
+<p>Although it has benefits, it might bring risks like:</p>
+<ul>
+<li><strong>Serious regressions:</strong> By changing a working code, you are at a chance of interruption in system processes, and it will be increased if there is no test! In a fast-growing company, that coding speed is not at the pace of testing, changing the core files is more like walking across a minefield.</li>
+<li><strong>Unearthing dormant bugs:</strong> Refactoring helps identify bugs, but it can unintentionally raise undetermined or dormant bugs hidden for a long time. These kinds of bugs are hard to recognize.</li>
+<li><strong>Scope creep:</strong> Experiencing immediate and highly significant improvement when making focused, localized changes is <em>incredibly rewarding</em>. By limiting the refactoring to a set of changes, other developers can comfortably review and suggest. Good refactoring keeps the scope solid and prevents side effects as much as possible.</li>
+<li><strong>Unnecessary complexity:</strong> The primary goal should be producing <em>human-friendly</em> code, even at the cost of your original design change and it will occur by focusing on the process, not the solution. This way of thinking helps you achieve less complicated software in the end.</li>
+</ul>
+<p>After reviewing the pros &amp; cons, you should be aware of an important note:</p>
+<blockquote>
+  <p>We must keep in mind our ultimate goal: bettering the code in a way that is clear to both you and future developers interacting with the code
+  "Refactoring At Scale, by Maude Lemaire"</p>
+</blockquote>
+<h2 id="whennottorefactor">When NOT to refactor?</h2>
+<ul>
+<li><strong>For fun or out of boredom:</strong> When you are refactoring for fun, you're not focusing on the impact your change will have on the code, the overall system, and your coworker. You might have different kinds of motivation; testing new patterns, using more far-fetched language features, etc. <em>There is a time and place for testing new things that refactoring is not the place.</em> Refactoring, ideally, is for the smallest changes for the biggest positive impact.</li>
+<li><strong>Because something catches your eye:</strong> It's common, especially in large teams, that you face a part of the system and think of a better way in place of the current solution and you are not responsible for it. In such a situation, digging into the refactoring without talking to the owner or having a discussion with the author (in case of availability) is a bad thing, as you probably aren't aware of the scope and the problem. Suggesting and talking to the owners is the best move in these situations. </li>
+<li><strong>To make code more extendable:</strong> It might sound a little confusing but as it is unwise try to make the code extendable for the future that hasn't arrived because you don't have a clear understanding of the further requirements and the wins will not be tangible. </li>
+<li><strong>When you don't have time:</strong> <em>The half-refactored code is the worse thing than the required code to refactor.</em> When there isn't a specific time the refactoring ends, the reader will have trouble following the refactoring path. It also will block the ongoing features or deprecation plans. By the way, if you plan a refactoring but don't have enough time, try to scope down the changes to make some improvements that comfortably reach the finish line.</li>
+</ul>
+<h2 id="whentorefactor">When to refactor?</h2>
+<p>Calculating the tradeoff in refactoring is not as easy as "when the benefits outweigh the risks". Each puzzle piece should affect the decision by the weight we assign to them. It's a good practice to use some evidence in our decision-making process, like:</p>
+<ul>
+<li><strong>Small scope:</strong> A small, straightforward section of well-tested is a good place to start refactoring unless you are uncertain about objective improvement or fear affecting a large area.</li>
+<li><strong>Code complexity actively hinders development:</strong> Is the development hard? How much do the developers fear of change in the code? Is there in the system that is critical and developers pass it to others? So, the bell rings! To prove it, you can gather the last 6 months' bugs and trace them in the code to consider refactoring or not!</li>
+<li><strong>Shift in product requirements:</strong> In other words, these changes mean with the same input we expect other output, and if the current state is not working well, it's an opportunity for you to make the refactoring and then start implementing the new functionalities. To make a long story short, you set a standard of high-quality code, cashing in all the benefits of refactoring, and supporting business objectives.</li>
+<li><strong>Performance:</strong> With a deep understanding of the system, you can identify which levers you can use to tilt the scales positively. As this factor speeds up the functionalities, it's part of refactoring. By isolating the levers you identified, refactoring could be done with lower risks.</li>
+<li><strong>Using a new technology:</strong> If you opt to replace an existing technology with a new one, you have to plan a deprecation plan by identifying all affected call sites and migrating them. Or if you opt to use a new technology moving forward, you have to identify high-leverage candidates for early adoption with a plan to expand usage. It's recommended before adding new pieces, clean up the mess and tidy the system first.</li>
+</ul>
+<h2 id="conclusion">Conclusion</h2>
+<p>As said earlier in this article, refactoring is the art. It's not a fast activity that can decide and roll back easily. By considering all aspects of the system, team members, and business you can participate or trigger the refactoring process. Here is a funny but real catch up :)</p>
+<p><img src="https://github.com/user-attachments/assets/f47e76d8-de36-4dd5-80dc-8c46e39bb5a6" alt="refactoring-pain" /></p>
+<p>Hope you enjoy the article!</p>
+<h4 id="references">References:</h4>
+<ul>
+<li>O'Reilly publication; Software Engineering at Google; Titus Winters, Tom Manshreck &amp; Hyrum Wright</li>
+<li>O'Reilly publication; Refactoring at Scale; Maude Lemaire</li>
+<li>https://www.iseoblue.com/post/understanding-the-project-complexity-matrix-for-effective-project-management</li>
+</ul>
+                </div>
+                <div class="my-2">
+                    
+                    <p 
+                        id="post-link"
+                        class="d-inline-block my-2 py-2 px-2 border border-2 text-body-secondary" 
+                        style="border-radius: 10px; cursor: pointer;"
+                        onclick="document.execCommand('copy')"
+                    >
+                        <img src="https://m8e.ir/img/copy.png" style="margin-right: 3px;" width="20px" alt="copy" /><span id="link"> https://m8e.ir/l/?p=2363433053</span>
+                    </p>
+                </div>
+                <a href="https://github.com/ARTM2000" style="text-decoration: none;" target="_blank" rel="follow">
+    <div class="row mt-4 mb-2 ml-2">
+        <div class="col-2 col-sm-2 col-lg-1 px-1">
+            <img class="d-block" src="https://avatars.githubusercontent.com/u/50656840?v=4" width="55px" style="border-radius: 30px; margin-left: 10px;" />
+        </div>
+        <div class="col-9 px-3 px-sm-1 px-md-1 px-lg-4 px-xl-1">
+            <p class="text-body-secondary my-0 mx-md-0" style="font-size: 18px;">Alireza Tanoomandian</p>
+            <small class="text-body-secondary" >2024-06-20</small>
+        </div>
+    </div>
+</a>
+<hr>
+                <div class="row">
+                    <div class="col-12 col-md-6 my-3">
+                        
+                            <a href="https://m8e.ir/blog/2345716869-you-want-to-create-a-saas-here-is-important-key-factors-part2.html" style="text-decoration: none;">
+                                <div class="px-3 py-3 border border-1 text-body-emphasis" style="border-radius: 10px;">
+                                    <h5>You want to create a SaaS? here is important key factors - part2</h5>
+                                    <p class="my-1">&#171; Previous Post</p>
+                                </div>
+                            </a>
+                        
+                    </div>
+                    <div class="col-12 col-md-6 my-3">
+                        
+                    </div>
+                </div>
+                <button 
+    onclick="window.location = 'https://m8e.ir'" 
+    class="btn text-secondary d-block my-4 p-0" 
+    style="cursor: pointer; font-size: .9em;"
+    >&#8592; Back to home page</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.querySelectorAll(".content a").forEach(a => {
+            if (a.href.indexOf("https://m8e.ir") > -1) {
+                a.rel = "follow"
+            } else {
+                a.target = "_blank";
+                a.rel = "nofollow";
+            }
+        });
+
+        document.querySelectorAll(".content blockquote").forEach(b => {
+            if (b.children.length > 1) {
+                const blockQuotes = []
+                for (let i = 0; i < b.children.length; i++) {
+                    const newB = document.createElement("blockquote")
+                    const ch = document.createElement(b.children[i].tagName.toLowerCase())
+                    ch.innerHTML = b.children[i].innerHTML;
+                    newB.appendChild(ch);
+                    blockQuotes.push(newB);
+                }
+
+                b.replaceWith(...blockQuotes);
+            }
+        });
+
+        document.getElementById('post-link').addEventListener('copy', (e) => {
+            e.preventDefault();
+            if (e.clipboardData) {
+                e.clipboardData.setData('text/plain', 'https://m8e.ir/l/?p=2363433053')
+                document.getElementById('link').innerText = " copied!"
+                setTimeout(() => {
+                    document.getElementById('link').innerText = " https://m8e.ir/l/?p=2363433053";
+                }, 800)
+            }
+        });
+
+        document.querySelectorAll('.content img').forEach(img => {
+            const next = img.nextElementSibling;
+            if (!!next && next.tagName.toLowerCase() === "small") {
+                next.style = "display: block; font-size: 13px"
+                next.className += " text-body-secondary";
+            }
+        })
+    </script>
+    <footer>
+	<div class="container mt-5">
+		<hr />
+        <div class="row my-4 px-1">
+            <div class="col-12">
+                <code class="text-body-emphasis">Created with ☕. Powered by GitHub</code>
+            </div>
+        </div>
+        <div class="d-inline-block px-2">
+            <a href="https://github.com/ARTM2000" target="_blank">
+                <img src="https://m8e.ir/img/github-mark-white.png" width="30px" alt="github" />
+            </a>
+        </div>
+        <div class="d-inline-block px-2">
+            <a href="https://linkedin.com/in/alirezatanoomandian" target="_blank">
+                <img src="https://m8e.ir/img/linkedin.png" width="30px" alt="linkedin" />
+            </a>
+        </div>
+        <br><br><br><br><br>
+	</div>
+	<script defer>
+		hljs.highlightAll();
+	</script>
+	<script defer>
+		// const darkModeActive = document.querySelector('html').dataset.bsTheme === 'dark'
+		document.querySelectorAll("table").forEach((element) => {
+			element.className +=
+				" table table-striped table-bordered border border-3";
+		});
+		document.querySelectorAll("tbody").forEach((element) => {
+			element.className += " table-group-divider";
+		});
+	</script>
+</footer>
+
+</body>
