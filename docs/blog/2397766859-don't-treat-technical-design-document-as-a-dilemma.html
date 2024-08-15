@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://m8e.ir/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://m8e.ir/css/bootstrap.rtl.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet" type="text/css" />
+    <script src="https://m8e.ir/js/bootstrap.bundle.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- <link rel="stylesheet" href="https://m8e.ir/css/root.css"> -->
+    <link rel="stylesheet" href="/css/root.css">
+    <link rel="stylesheet" href="https://m8e.ir/css/default.min.css">
+    <link rel="stylesheet" href="https://m8e.ir/css/github-dark.min.css">
+    <script src="https://m8e.ir/js/highlight.min.js"></script>
+    <meta name="robots" content="index, follow" />
+    <meta name="description" content="The discussed content highlights the importance of documentation in software development, stressing its role in project clarity and success. While clear, self-explanatory code is ideal, complex projects may benefit from detailed technical design documents (TDDs) to aid understanding and collaboration. TDDs facilitate communication, manage project intricacies, and foresee issues, enhancing project outcomes. However, in certain contexts like small projects or agile environments, extensive TDDs may be unnecessary. Alternative documentation methods such as wikis, diagrams, or well-commented code can effectively capture essential design decisions. Context-specific factors like project complexity and time constraints should inform decisions on formal TDD creation, recognizing the importance of adaptability in documentation approaches." />
+    <meta property="og:title" content="Don&#39;t treat technical design document as a dilemma!" />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://m8e.ir/blog/2397766859-don&#39;t-treat-technical-design-document-as-a-dilemma.html" />
+    <meta property="og:image" content="https://github.com/user-attachments/assets/54a20726-5e21-4250-9e4d-6c2ed8689eb3" />
+    <meta name="twitter:title" content="Don&#39;t treat technical design document as a dilemma!">
+    <meta name="twitter:description" content="The discussed content highlights the importance of documentation in software development, stressing its role in project clarity and success. While clear, self-explanatory code is ideal, complex projects may benefit from detailed technical design documents (TDDs) to aid understanding and collaboration. TDDs facilitate communication, manage project intricacies, and foresee issues, enhancing project outcomes. However, in certain contexts like small projects or agile environments, extensive TDDs may be unnecessary. Alternative documentation methods such as wikis, diagrams, or well-commented code can effectively capture essential design decisions. Context-specific factors like project complexity and time constraints should inform decisions on formal TDD creation, recognizing the importance of adaptability in documentation approaches.">
+    <meta name="twitter:image" content="https://github.com/user-attachments/assets/54a20726-5e21-4250-9e4d-6c2ed8689eb3">
+    <meta name="twitter:card" content="summary_large_image">
+    <title>MetaReadMe | Don&#39;t treat technical design document as a dilemma!</title>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-8DRQJK9YQB"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-8DRQJK9YQB');
+    </script>
+</head>
+<body>
+    <div class="container mt-2 mb-5 p-3">
+        <div class="row">
+            <div class="col-md-9 col-lg-8 col-sm-12 mx-auto">
+                <button 
+    onclick="window.location = 'https://m8e.ir'" 
+    class="btn text-secondary d-block my-4 p-0" 
+    style="cursor: pointer; font-size: .9em;"
+    >&#8592; Back to home page</button>
+                
+                    
+                        <div class="py-1 px-2 d-inline-block" style="font-size: smaller; border-radius: 100px; background-color: #D93F0B20; color: #D93F0B;" >software design</div>
+                    
+                        <div class="py-1 px-2 d-inline-block" style="font-size: smaller; border-radius: 100px; background-color: #20ACF120; color: #20ACF1;" >system maintenance</div>
+                    
+                
+                <h1 id="post-title" class="text-body-emphasis">Don&#39;t treat technical design document as a dilemma!</h1>
+                <small class="text-body-secondary">
+                    <strong style="font-size: 15px;">Summary. </strong>
+                    <span id="summary-content">The discussed content highlights the importance of documentation in software development, stressing its role in project clarity and success. While clear, self-explanatory code is ideal, complex projects may benefit from ... </span>
+                    <span><strong style="font-size: 15px;cursor: pointer;" id="summary-action">more</strong></span>
+                </small>
+                <a href="https://github.com/ARTM2000" style="text-decoration: none;" target="_blank" rel="follow">
+    <div class="row mt-4 mb-2 ml-2">
+        <div class="col-2 col-sm-2 col-lg-1 px-1">
+            <img class="d-block" src="https://avatars.githubusercontent.com/u/50656840?v=4" width="55px" style="border-radius: 30px; margin-left: 10px;" />
+        </div>
+        <div class="col-9 px-3 px-sm-1 px-md-1 px-lg-4 px-xl-1">
+            <p class="text-body-secondary my-0 mx-md-0" style="font-size: 18px;">Alireza Tanoomandian</p>
+            <small class="text-body-secondary" >2024-07-09</small>
+        </div>
+    </div>
+</a>
+<hr>
+                <div class="content mt-3">
+                    <p><img src="https://github.com/user-attachments/assets/54a20726-5e21-4250-9e4d-6c2ed8689eb3" alt="matt-hudson-CqIXQJYrNGs-unsplash-min" />
+<small>Source: <a href="https://unsplash.com/photos/lego-blocks-on-white-table-CqIXQJYrNGs">by Matt Hudson on Unsplash</a></small></p>
+<p>Creating and maintaining is part of the nature of software development. After receiving the problem statement or the idea from our insight or product team, development will start, go, and finish. Time goes and after some months you want to back to the project for further changes, onboarding a new teammate, or present the problem scope and the solution to the board or stakeholders. While you have no way instead of reading all you did before, permanently ask yourself "Is this my work?", "Why did I do that in this way?", "This part is sucks!", and so on. You might ask your teammates what they remember, and most of the time this won't work as expected!</p>
+<p>You spend so much time figuring it out and finally get it, but is the time worth it?! Could this process boosted by having some documents? <em>But wait!</em> <strong>Most developers don't like documenting while asking for it :)</strong>. When I talk with others, they say that the code should be <em>self-explanatory</em>, that good code doesn't need a document as you can easily understand it, and they will be there for any changes and more. Although these statements sound good, they are not for any situation.</p>
+<p>Keeping the code self-explanatory is a tempting approach, but like others has advantages and disadvantages. Self-explanatory code can reduce the need for extensive inline comments or external documentation, making it easier to maintain and update the codebase over time. It also enhances readability, as team members can easily collaborate on the project and understand each other contribution. On the other hand, when the project's complexity grows, keeping the style will become hard, and a lack of business logic knowledge will increase its ambiguity, collaborating on the project becomes hard and more time is needed to understand and develop to catch the goal.</p>
+<p><img src="https://github.com/user-attachments/assets/c18ce9d3-c730-425d-863e-62c21f2ac125" alt="120047621_659391034992366_9080365924754843183_n" /></p>
+<p>Everyone agrees that clean code decreases future problems and can mitigate some, but we have to take care of the documentation, too. Documenting a technical design begins with the crucial step of preparing for the documentation process, which involves considering edge cases and breaking down the project into manageable components for organized implementation. This initial phase not only ensures that potential challenges are anticipated and addressed proactively but also sets the stage for a structured and well-thought-out documentation process. </p>
+<p>Moving into the heart of the documentation process, it is essential to detail solutions for potential future problems, gather feedback from team members, and organize their suggestions effectively. This phase serves not only as a repository of information for current and future reference but also as a platform for collaboration and iterative improvement based on valuable input from stakeholders. By documenting feedback and suggestions cohesively, the document becomes a living entity that evolves with the project.</p>
+<p>As the technical design document takes shape, it plays a pivotal role in facilitating communication, enhancing team understanding of project intricacies, and potentially laying the groundwork for future project iterations. By aiding in task prioritization, managing project complexity, and efficiently resolving issues while preempting potential blockers, this documentation process becomes a cornerstone of project success. Its ability to streamline communication, promote clarity, and drive effective problem-solving underscores its significance as a fundamental tool in the project's lifecycle.</p>
+<p><em>However, writing the technical design document is not always beneficial. In certain scenarios, the formal creation of a Technical Design Document (TDD) may not be necessary</em>. Firstly, for small and straightforward projects like utility scripts or basic web pages with limited functionalities, the effort invested in crafting an elaborate TDD could exceed the benefits gained, as the design might be easily grasped through informal communication. Similarly, during prototyping or exploratory phases, where ideas or technologies are being tested swiftly, a formal TDD might lag behind the rapid evolution of the design, emphasizing the need for agile experimentation and frequent iterations.</p>
+<p>Moreover, when projects adhere to well-defined standards or established patterns within frameworks like Spring Boot or Django, where architectural decisions are implicit and documented by the framework itself, the creation of a TDD might be considered redundant. In agile development environments utilizing methodologies such as Scrum or Kanban, where adaptability and iterative progress are paramount, a detailed TDD might impose unnecessary rigidity, potentially hindering the team's flexibility in responding to evolving requirements.</p>
+<p>Additionally, when time constraints loom large over a project, prioritizing the delivery of a functional solution within a tight timeframe might render the exhaustive creation of a TDD impractical. Instead of a formal TDD, alternative documentation methods such as informal wikis, diagrams, or well-commented code can serve as effective substitutes for capturing essential design decisions. Emphasizing clean and well-documented code as a form of documentation itself can also aid in conveying the design effectively.</p>
+<p>Furthermore, conducting regular design reviews with stakeholders can ensure that architectural choices are refined and aligned with project goals. However, in the case of complex systems with numerous components and dependencies, critical systems necessitating heightened reliability and security, or projects involving multiple teams or developers, the structured approach offered by a TDD can prove invaluable in ensuring clarity, consistency, and effective team collaboration.</p>
+<p>Ultimately, the decision on whether to undertake a formal TDD should be context-specific, taking into account factors such as project complexity, time constraints, and team dynamics. It is essential not to feel compelled to create a TDD if it does not significantly enhance the project's value or align with its unique requirements, acknowledging that flexibility and adaptability are key in determining the most suitable documentation approach for each project scenario.</p>
+                </div>
+                <div class="my-2">
+                    
+                    <p 
+                        id="post-link"
+                        class="d-inline-block my-2 py-2 px-2 border border-2 text-body-secondary" 
+                        style="border-radius: 10px; cursor: pointer;"
+                        onclick="document.execCommand('copy')"
+                    >
+                        <img src="https://m8e.ir/img/copy.png" style="margin-right: 3px;" width="20px" alt="copy" /><span id="link"> https://m8e.ir/l/?p=2397766859</span>
+                    </p>
+                </div>
+                <a href="https://github.com/ARTM2000" style="text-decoration: none;" target="_blank" rel="follow">
+    <div class="row mt-4 mb-2 ml-2">
+        <div class="col-2 col-sm-2 col-lg-1 px-1">
+            <img class="d-block" src="https://avatars.githubusercontent.com/u/50656840?v=4" width="55px" style="border-radius: 30px; margin-left: 10px;" />
+        </div>
+        <div class="col-9 px-3 px-sm-1 px-md-1 px-lg-4 px-xl-1">
+            <p class="text-body-secondary my-0 mx-md-0" style="font-size: 18px;">Alireza Tanoomandian</p>
+            <small class="text-body-secondary" >2024-07-09</small>
+        </div>
+    </div>
+</a>
+<hr>
+                <div class="row">
+                    <div class="col-12 col-md-6 my-3">
+                        
+                            <a href="https://m8e.ir/blog/2363433053-when-should-and-should-not-refactor.html" style="text-decoration: none;">
+                                <div class="px-3 py-3 border border-1 text-body-emphasis" style="border-radius: 10px;">
+                                    <h5>When should and should not REFACTOR?</h5>
+                                    <p class="my-1">&#171; Previous Post</p>
+                                </div>
+                            </a>
+                        
+                    </div>
+                    <div class="col-12 col-md-6 my-3">
+                        
+                    </div>
+                </div>
+                <button 
+    onclick="window.location = 'https://m8e.ir'" 
+    class="btn text-secondary d-block my-4 p-0" 
+    style="cursor: pointer; font-size: .9em;"
+    >&#8592; Back to home page</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.querySelectorAll(".content a").forEach(a => {
+            if (a.href.indexOf("https://m8e.ir") > -1) {
+                a.rel = "follow"
+            } else {
+                a.target = "_blank";
+                a.rel = "nofollow";
+            }
+        });
+
+        document.querySelectorAll(".content blockquote").forEach(b => {
+            if (b.children.length > 1) {
+                const blockQuotes = []
+                for (let i = 0; i < b.children.length; i++) {
+                    const newB = document.createElement("blockquote")
+                    const ch = document.createElement(b.children[i].tagName.toLowerCase())
+                    ch.innerHTML = b.children[i].innerHTML;
+                    newB.appendChild(ch);
+                    blockQuotes.push(newB);
+                }
+
+                b.replaceWith(...blockQuotes);
+            }
+        });
+
+        document.getElementById('post-link').addEventListener('copy', (e) => {
+            e.preventDefault();
+            if (e.clipboardData) {
+                e.clipboardData.setData('text/plain', 'https://m8e.ir/l/?p=2397766859')
+                document.getElementById('link').innerText = " copied!"
+                setTimeout(() => {
+                    document.getElementById('link').innerText = " https://m8e.ir/l/?p=2397766859";
+                }, 800)
+            }
+        });
+
+        document.querySelectorAll('.content img').forEach(img => {
+            const next = img.nextElementSibling;
+            if (!!next && next.tagName.toLowerCase() === "small") {
+                next.style = "display: block; font-size: 13px"
+                next.className += " text-body-secondary";
+            }
+        })
+
+        const fullSummary = 'The discussed content highlights the importance of documentation in software development, stressing its role in project clarity and success. While clear, self-explanatory code is ideal, complex projects may benefit from detailed technical design documents (TDDs) to aid understanding and collaboration. TDDs facilitate communication, manage project intricacies, and foresee issues, enhancing project outcomes. However, in certain contexts like small projects or agile environments, extensive TDDs may be unnecessary. Alternative documentation methods such as wikis, diagrams, or well-commented code can effectively capture essential design decisions. Context-specific factors like project complexity and time constraints should inform decisions on formal TDD creation, recognizing the importance of adaptability in documentation approaches.';
+        const previewSummary = 'The discussed content highlights the importance of documentation in software development, stressing its role in project clarity and success. While clear, self-explanatory code is ideal, complex projects may benefit from ...';
+        document.getElementById('summary-action').addEventListener('click', (e) => {
+            console.log(e.target.innerText);
+            if (e.target.innerText === 'more') {
+                document.getElementById('summary-content').innerText = fullSummary;
+                e.target.innerText = 'close';
+            } else {
+                document.getElementById('summary-content').innerText = previewSummary;
+                e.target.innerText = 'more';
+            }
+        })
+    </script>
+    <footer>
+	<div class="container mt-5">
+		<hr />
+        <div class="row my-4 px-1">
+            <div class="col-12">
+                <code class="text-body-emphasis">Created with ☕. Powered by GitHub</code>
+            </div>
+        </div>
+        <div class="d-inline-block px-2">
+            <a href="https://github.com/ARTM2000" target="_blank">
+                <img src="https://m8e.ir/img/github-mark-white.png" width="30px" alt="github" />
+            </a>
+        </div>
+        <div class="d-inline-block px-2">
+            <a href="https://linkedin.com/in/alirezatanoomandian" target="_blank">
+                <img src="https://m8e.ir/img/linkedin.png" width="30px" alt="linkedin" />
+            </a>
+        </div>
+        <br><br><br><br><br>
+	</div>
+	<script defer>
+		hljs.highlightAll();
+	</script>
+	<script defer>
+		// const darkModeActive = document.querySelector('html').dataset.bsTheme === 'dark'
+		document.querySelectorAll("table").forEach((element) => {
+			element.className +=
+				" table table-striped table-bordered border border-3";
+		});
+		document.querySelectorAll("tbody").forEach((element) => {
+			element.className += " table-group-divider";
+		});
+	</script>
+</footer>
+
+</body>
