@@ -73,7 +73,7 @@ export class Renderer {
 					...content,
 					pageTitle: `${content.pageTitle} | ${post.title}`,
 					metaTitle: post.title,
-					metaSubTitle: post.subTitle || "",
+					metaSubTitle: post.subTitlePreview || "",
 					metaUrl: `${content.metaUrl}/${this.#getPostUrlLink(post)}`,
 					metaImage: mainImage,
 				},

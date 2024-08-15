@@ -63,7 +63,7 @@ export class Config {
         content.introduction = data.content.introduction
         content.pageTitle = data.content.page_title
         content.metaTitle = data.content.page_title
-        content.metaImage = '';
+        content.metaImage = '/img/MetaReadme-cover.png';
         content.metaUrl = data.domain;
         content.domain = data.domain;
         content.withRobotsIndex = true;
