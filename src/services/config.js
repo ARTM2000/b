@@ -64,8 +64,9 @@ export class Config {
         content.pageTitle = data.content.page_title
         content.metaTitle = data.content.page_title
         content.metaImage = '';
-        content.metaUrl = data.domain
-        content.domain = data.domain
+        content.metaUrl = data.domain;
+        content.domain = data.domain;
+        content.withRobotsIndex = true;
 
         this.#content = content
     }

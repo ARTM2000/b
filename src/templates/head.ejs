@@ -15,7 +15,11 @@
     <link rel="stylesheet" href="<%= content.domain %>/css/default.min.css">
     <link rel="stylesheet" href="<%= content.domain %>/css/github-dark.min.css">
     <script src="<%= content.domain %>/js/highlight.min.js"></script>
-    <meta name="robots" content="index, follow" />
+    <% if (content.withRobotsIndex) { %>
+        <meta name="robots" content="index,follow" />
+    <% } else { %>
+        <meta name="robots" content="noindex,nofollow" />
+    <% } %>
     <meta name="description" content="<%= content.metaSubTitle || content.metaTitle %>" />
     <meta property="og:title" content="<%= content.metaTitle %>" />
     <meta property="og:type" content="article" />

@@ -115,7 +115,7 @@ export class Renderer {
 				...p,
 				url: `${content.domain}/${this.#getPostUrlLink(p)}`,
 			})),
-			content: content,
+			content: { ...content, withRobotsIndex: false },
 		};
 		this.#renderTemplate(templatePath, targetPath, payload);
 	}
@@ -186,7 +186,7 @@ export class Renderer {
 
 		const payload = {
 			postsMap: JSON.stringify(postsMap),
-			content: content,
+			content: {...content, withRobotsIndex: false},
 		};
 		this.#renderTemplate(templatePath, targetPath, payload);
 	}
