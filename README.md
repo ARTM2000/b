@@ -8,7 +8,7 @@ This is a kind of blog project with power of github issues!
 - [x] Add next and previous button to post
 - [x] Create JSON file for using data for search
 - [x] Add blog summary 
-- [ ] Add social media shared buttons
+- [x] Add social media shared buttons
 - [ ] Add category page for its posts
 - [ ] Add categories touch point on index page
 - [ ] Add related posts on single post page
