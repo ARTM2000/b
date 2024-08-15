@@ -154,16 +154,52 @@
 <p>This is the first part of the post. In the <a href="https://m8e.ir/blog/2345716869-you-want-to-create-a-saas-here-is-important-key-factors-part2.html">next post</a> we are going to explore the rest of remained factors, so keep going! </p>
 <p>Hope you enjoyed it!</p>
                 </div>
-                <div class="my-2">
-                    
-                    <p 
-                        id="post-link"
-                        class="d-inline-block my-2 py-2 px-2 border border-2 text-body-secondary" 
-                        style="border-radius: 10px; cursor: pointer;"
-                        onclick="document.execCommand('copy')"
+                <div class="social-wrapper"
+                    style="display: flex; justify-content: center;"
+                >
+                    <div 
+                    class="my-2 border border-2 d-inline-block pr-3 mx-auto"
+                    style="border-radius: 10px; cursor: pointer;"
                     >
-                        <img src="https://m8e.ir/img/copy.png" style="margin-right: 3px;" width="20px" alt="copy" /><span id="link"> https://m8e.ir/l/?p=2328841453</span>
-                    </p>
+                    <div 
+                        class="d-inline-block p-2 my-2" 
+                        style="border-radius: 10px; cursor: pointer;"
+                    >
+                        <div class="d-inline-block mx-2">
+                            <img 
+                                src="/img/linkedin-social.png" 
+                                alt="linkedin_share" 
+                                width="25px" 
+                                onclick="window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(window.location.href)}`)">
+                        </div>
+                        <div class="d-inline-block mx-2">
+                            <img 
+                                src="/img/twitter.png" 
+                                alt="twitter_share" 
+                                width="20px" 
+                                onclick="window.open(`https://twitter.com/intent/tweet?url=${encodeURIComponent(window.location.href)}&text=${encodeURIComponent('Check out this!')}`)">
+                        </div>
+                        <div class="d-inline-block mx-2">
+                            <img 
+                                src="/img/telegram.png" 
+                                alt="telegram_share" 
+                                width="25px"
+                                onclick="window.open(`https://t.me/share/url?url=${encodeURIComponent(window.location.href)}&text=${encodeURIComponent('Check out this!')}`)">
+                        </div>
+                    </div>
+                    <div class="d-inline-block my-2">|</div>
+                    <div class="d-inline-block">
+                        
+                        <p 
+                            id="post-link"
+                            class="d-inline-block my-2 py-2 px-2" 
+                            style="border-radius: 10px; cursor: pointer; width: 120px;"
+                            onclick="document.execCommand('copy')"
+                        >
+                            <img src="/img/copy.png" style="margin-right: 3px;" width="25px" alt="copy" /><span id="link"> Copy link</span>
+                        </p>
+                    </div>
+                </div>
                 </div>
                 <a href="https://github.com/ARTM2000" style="text-decoration: none;" target="_blank" rel="follow">
     <div class="row mt-4 mb-2 ml-2">
@@ -229,10 +265,10 @@
             e.preventDefault();
             if (e.clipboardData) {
                 e.clipboardData.setData('text/plain', 'https://m8e.ir/l/?p=2328841453')
-                document.getElementById('link').innerText = " copied!"
+                document.getElementById('link').innerText = " Copied!"
                 setTimeout(() => {
-                    document.getElementById('link').innerText = " https://m8e.ir/l/?p=2328841453";
-                }, 800)
+                    document.getElementById('link').innerText = " Copy Link";
+                }, 1000)
             }
         });
 
