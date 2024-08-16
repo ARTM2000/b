@@ -71,7 +71,7 @@ export class Renderer {
 				post: { ...post, body: this.#convertMarkdownToHtml(post.body) },
 				content: {
 					...content,
-					pageTitle: `${content.pageTitle} | ${post.title}`,
+					pageTitle: post.title,
 					metaTitle: post.title,
 					metaSubTitle: post.subTitlePreview || "",
 					metaUrl: `${content.metaUrl}/${this.#getPostUrlLink(post)}`,
@@ -111,10 +111,18 @@ export class Renderer {
 		const content = this.#config.getContent();
 
 		const payload = {
-			posts: postsFor404.map((p) => ({
-				...p,
-				url: `${content.domain}/${this.#getPostUrlLink(p)}`,
-			})),
+			posts: postsFor404.map((p) => {
+				const subTitleWords = p.subTitle.split(/\s{1,}/g);
+				const maxSubTitleWords = 20;
+
+				return {
+					...p,
+					subTitle: subTitleWords.length > maxSubTitleWords ? 
+						subTitleWords.splice(0, maxSubTitleWords).join(' ') + ' ...' : 
+						p.subTitle,
+					url: `${content.domain}/${this.#getPostUrlLink(p)}`,
+				}
+			}),
 			content: { ...content, withRobotsIndex: false },
 		};
 		this.#renderTemplate(templatePath, targetPath, payload);
