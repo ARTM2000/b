@@ -189,7 +189,7 @@ export class Renderer {
 		const allPosts = await this.#blogPosts.getAllPosts();
 		const postsMap = {};
 		for (const p of allPosts) {
-			postsMap[p.id] = `${content.domain}/${this.#getPostUrlLink(p)}`
+			postsMap[p.id] = Buffer.from(`${content.domain}/${this.#getPostUrlLink(p)}`).toString('base64')
 		}
 
 		const payload = {

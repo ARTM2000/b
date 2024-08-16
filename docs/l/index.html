@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="https://m8e.ir/css/github-dark.min.css">
     <script src="https://m8e.ir/js/highlight.min.js"></script>
     
-        <meta name="robots" content="noindex,nofollow" />
+    <meta name="robots" content="noindex,nofollow" />
     
     <meta name="description" content="MetaReadMe" />
     <meta property="og:title" content="MetaReadMe" />
@@ -49,10 +49,10 @@
         }
 
         const postId = matchRes[1];
-        const postsMappingUrl = JSON.parse('{"2328841453":"https://m8e.ir/blog/2328841453-you-want-to-create-a-saas-here-is-important-key-factors-part1.html","2345716869":"https://m8e.ir/blog/2345716869-you-want-to-create-a-saas-here-is-important-key-factors-part2.html","2363433053":"https://m8e.ir/blog/2363433053-when-should-and-should-not-refactor.html","2397766859":"https://m8e.ir/blog/2397766859-don't-treat-technical-design-document-as-a-dilemma.html"}');
+        const postsMappingUrl = JSON.parse('{"2328841453":"aHR0cHM6Ly9tOGUuaXIvYmxvZy8yMzI4ODQxNDUzLXlvdS13YW50LXRvLWNyZWF0ZS1hLXNhYXMtaGVyZS1pcy1pbXBvcnRhbnQta2V5LWZhY3RvcnMtcGFydDEuaHRtbA==","2345716869":"aHR0cHM6Ly9tOGUuaXIvYmxvZy8yMzQ1NzE2ODY5LXlvdS13YW50LXRvLWNyZWF0ZS1hLXNhYXMtaGVyZS1pcy1pbXBvcnRhbnQta2V5LWZhY3RvcnMtcGFydDIuaHRtbA==","2363433053":"aHR0cHM6Ly9tOGUuaXIvYmxvZy8yMzYzNDMzMDUzLXdoZW4tc2hvdWxkLWFuZC1zaG91bGQtbm90LXJlZmFjdG9yLmh0bWw=","2397766859":"aHR0cHM6Ly9tOGUuaXIvYmxvZy8yMzk3NzY2ODU5LWRvbid0LXRyZWF0LXRlY2huaWNhbC1kZXNpZ24tZG9jdW1lbnQtYXMtYS1kaWxlbW1hLmh0bWw="}');
         const url = postsMappingUrl[postId];
         if (!!url) {
-            window.location = url;
+            window.location = atob(url);
         } else {
             window.location = 'https://m8e.ir'
         }

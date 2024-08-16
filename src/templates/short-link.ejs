@@ -13,7 +13,7 @@
         const postsMappingUrl = JSON.parse('<%- postsMap %>');
         const url = postsMappingUrl[postId];
         if (!!url) {
-            window.location = url;
+            window.location = atob(url);
         } else {
             window.location = '<%= content.domain %>'
         }
