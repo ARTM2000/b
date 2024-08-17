@@ -103,7 +103,7 @@ export class BlogPosts {
         p.createdAt = post.created_at;
         p.publishedAt = post.closed_at;
 
-        const d = (new Date(post.created_at)).toLocaleDateString().split('/');
+        const d = (new Date(post.closed_at)).toLocaleDateString().split('/');
         p.formattedPublishedAt = `${d[2]}-${d[0] > 9 ? d[0] : '0'+d[0]}-${d[1] > 9 ? d[1] : '0'+d[1]}`;
         p.categories = [];
         if (post.labels.length > 0) {
