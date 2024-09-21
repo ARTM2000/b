@@ -94,6 +94,9 @@ export class BlogPosts {
         }
 
         p.body = post.body;
+        const postImages = post.body.match(/!\[[^\]]*\]\((.*?)\s*("(?:.*[^"])")?\s*\)/);
+		p.mainImage = !!postImages ? postImages[1] : ''
+        
         p.user = {
             username: post.user.login,
             name: this.#authorUsernames[post.user.login] || post.user.login,

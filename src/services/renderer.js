@@ -64,9 +64,6 @@ export class Renderer {
 				subTitleWords.splice(0, maxSubTitlePreviewWords).join(' ') + ' ...' : 
 				post.subTitle;
 
-			const postImages = post.body.match(/!\[[^\]]*\]\((.*?)\s*("(?:.*[^"])")?\s*\)/);
-			const mainImage = !!postImages ? postImages[1] : ''
-
 			const payload = {
 				post: { ...post, body: this.#convertMarkdownToHtml(post.body) },
 				content: {
@@ -75,7 +72,7 @@ export class Renderer {
 					metaTitle: post.title,
 					metaSubTitle: post.subTitlePreview || "",
 					metaUrl: `${content.metaUrl}/${this.#getPostUrlLink(post)}`,
-					metaImage: mainImage,
+					metaImage: post.mainImage,
 				},
 				prevPost: null,
 				nextPost: null,
