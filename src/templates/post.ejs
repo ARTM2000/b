@@ -6,10 +6,10 @@
                 <%- include('back-to-home.ejs') %>
                 <% if (post.categories.length > 0) { %>
                     <% post.categories.forEach((c, i) => { %>
-                        <div class="py-1 px-2 d-inline-block" style="font-size: smaller; border-radius: 100px; background-color: <%= c.color %>20; color: <%= c.color %>;" ><%= c.name %></div>
+                        <div class="py-1 px-2 d-inline-block text-body-secondary" style="background-color: #0000002f; border-radius: 6px;"><%= c.name %></div>
                     <% }) %>
                 <% } %>
-                <h1 id="post-title" class="text-body-emphasis"><%= post.title %></h1>
+                <h1 id="post-title" class="text-body-emphasis mt-3"><%= post.title %></h1>
                 <small class="text-body-secondary">
                     <strong style="font-size: 15px;">Summary. </strong>
                     <span id="summary-content"><%= post.subTitlePreview %> </span>
@@ -137,8 +137,8 @@
             }
         })
 
-        const fullSummary = '<%- post.subTitle %>';
-        const previewSummary = '<%- post.subTitlePreview %>';
+        const fullSummary = "<%- post.subTitle %>";
+        const previewSummary = "<%- post.subTitlePreview %>";
         document.getElementById('summary-action').addEventListener('click', (e) => {
             console.log(e.target.innerText);
             if (e.target.innerText === 'more') {

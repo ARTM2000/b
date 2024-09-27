@@ -39,6 +39,7 @@ export class Renderer {
 					subTitle: subTitleWords.length > maxSubTitleWords ? 
 						subTitleWords.splice(0, maxSubTitleWords).join(' ') + ' ...' : 
 						p.subTitle,
+					fullSubTitle: p.subTitle,
 					url: `${content.domain}/${this.#getPostUrlLink(p)}`,
 				}
 			}),

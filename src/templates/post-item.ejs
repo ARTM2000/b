@@ -7,7 +7,7 @@
             <p class="cart-text text-body-emphasis mt-1 mb-2">Read more &#8594;</p>
             <% if (post.categories.length > 0) { %>
                 <% post.categories.forEach((c, i) => { %>
-                    <div class="py-1 px-2 d-inline-block" style="font-size: smaller; border-radius: 100px; background-color: <%= c.color %>20; color: <%= c.color %>;" ><%= c.name %></div>
+                     <div class="py-1 px-2 d-inline-block text-body-secondary" style="background-color: #0000002f; border-radius: 6px;"><%= c.name %></div>
                 <% }) %>
             <% } %>
         </div>

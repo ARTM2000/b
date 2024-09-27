@@ -49,12 +49,12 @@
     >&#8592; Back to home page</button>
                 
                     
-                        <div class="py-1 px-2 d-inline-block" style="font-size: smaller; border-radius: 100px; background-color: #D93F0B20; color: #D93F0B;" >software design</div>
+                        <div class="py-1 px-2 d-inline-block text-body-secondary" style="background-color: #0000002f; border-radius: 6px;">software design</div>
                     
-                        <div class="py-1 px-2 d-inline-block" style="font-size: smaller; border-radius: 100px; background-color: #132ad020; color: #132ad0;" >software development</div>
+                        <div class="py-1 px-2 d-inline-block text-body-secondary" style="background-color: #0000002f; border-radius: 6px;">software development</div>
                     
                 
-                <h1 id="post-title" class="text-body-emphasis">5 ways to create an HTTP server in Golang</h1>
+                <h1 id="post-title" class="text-body-emphasis mt-3">5 ways to create an HTTP server in Golang</h1>
                 <small class="text-body-secondary">
                     <strong style="font-size: 15px;">Summary. </strong>
                     <span id="summary-content">Since Go was released, it has gotten better, and more tools and frameworks created for different purposes that make Go programming and maintenance easier. Choosing the right Golang HTTP framework ... </span>
@@ -593,8 +593,8 @@ func main() {
             }
         })
 
-        const fullSummary = 'Since Go was released, it has gotten better, and more tools and frameworks created for different purposes that make Go programming and maintenance easier. Choosing the right Golang HTTP framework depends on your priorities. net/http offers flexibility and control but can be verbose. FastHTTP prioritizes performance but requires more manual configuration. Gin and Fiber balance performance and features, while Echo is highly customizable. Consider your project's needs and your development style to make the best choice.';
-        const previewSummary = 'Since Go was released, it has gotten better, and more tools and frameworks created for different purposes that make Go programming and maintenance easier. Choosing the right Golang HTTP framework ...';
+        const fullSummary = "Since Go was released, it has gotten better, and more tools and frameworks created for different purposes that make Go programming and maintenance easier. Choosing the right Golang HTTP framework depends on your priorities. net/http offers flexibility and control but can be verbose. FastHTTP prioritizes performance but requires more manual configuration. Gin and Fiber balance performance and features, while Echo is highly customizable. Consider your project's needs and your development style to make the best choice.";
+        const previewSummary = "Since Go was released, it has gotten better, and more tools and frameworks created for different purposes that make Go programming and maintenance easier. Choosing the right Golang HTTP framework ...";
         document.getElementById('summary-action').addEventListener('click', (e) => {
             console.log(e.target.innerText);
             if (e.target.innerText === 'more') {

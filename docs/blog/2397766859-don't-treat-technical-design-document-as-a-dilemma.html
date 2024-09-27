@@ -49,12 +49,12 @@
     >&#8592; Back to home page</button>
                 
                     
-                        <div class="py-1 px-2 d-inline-block" style="font-size: smaller; border-radius: 100px; background-color: #D93F0B20; color: #D93F0B;" >software design</div>
+                        <div class="py-1 px-2 d-inline-block text-body-secondary" style="background-color: #0000002f; border-radius: 6px;">software design</div>
                     
-                        <div class="py-1 px-2 d-inline-block" style="font-size: smaller; border-radius: 100px; background-color: #20ACF120; color: #20ACF1;" >system maintenance</div>
+                        <div class="py-1 px-2 d-inline-block text-body-secondary" style="background-color: #0000002f; border-radius: 6px;">system maintenance</div>
                     
                 
-                <h1 id="post-title" class="text-body-emphasis">Don&#39;t treat technical design document as a dilemma!</h1>
+                <h1 id="post-title" class="text-body-emphasis mt-3">Don&#39;t treat technical design document as a dilemma!</h1>
                 <small class="text-body-secondary">
                     <strong style="font-size: 15px;">Summary. </strong>
                     <span id="summary-content">The discussed content highlights the importance of documentation in software development, stressing its role in project clarity and success. While clear, self-explanatory code is ideal, complex projects may benefit from ... </span>
@@ -221,8 +221,8 @@
             }
         })
 
-        const fullSummary = 'The discussed content highlights the importance of documentation in software development, stressing its role in project clarity and success. While clear, self-explanatory code is ideal, complex projects may benefit from detailed technical design documents (TDDs) to aid understanding and collaboration. TDDs facilitate communication, manage project intricacies, and foresee issues, enhancing project outcomes. However, in certain contexts like small projects or agile environments, extensive TDDs may be unnecessary. Alternative documentation methods such as wikis, diagrams, or well-commented code can effectively capture essential design decisions. Context-specific factors like project complexity and time constraints should inform decisions on formal TDD creation, recognizing the importance of adaptability in documentation approaches.';
-        const previewSummary = 'The discussed content highlights the importance of documentation in software development, stressing its role in project clarity and success. While clear, self-explanatory code is ideal, complex projects may benefit from ...';
+        const fullSummary = "The discussed content highlights the importance of documentation in software development, stressing its role in project clarity and success. While clear, self-explanatory code is ideal, complex projects may benefit from detailed technical design documents (TDDs) to aid understanding and collaboration. TDDs facilitate communication, manage project intricacies, and foresee issues, enhancing project outcomes. However, in certain contexts like small projects or agile environments, extensive TDDs may be unnecessary. Alternative documentation methods such as wikis, diagrams, or well-commented code can effectively capture essential design decisions. Context-specific factors like project complexity and time constraints should inform decisions on formal TDD creation, recognizing the importance of adaptability in documentation approaches.";
+        const previewSummary = "The discussed content highlights the importance of documentation in software development, stressing its role in project clarity and success. While clear, self-explanatory code is ideal, complex projects may benefit from ...";
         document.getElementById('summary-action').addEventListener('click', (e) => {
             console.log(e.target.innerText);
             if (e.target.innerText === 'more') {
