@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://m8e.ir/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://m8e.ir/css/bootstrap.rtl.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet" type="text/css" />
+    <script src="https://m8e.ir/js/bootstrap.bundle.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- <link rel="stylesheet" href="https://m8e.ir/css/root.css"> -->
+    <link rel="stylesheet" href="/css/root.css">
+    <link rel="stylesheet" href="https://m8e.ir/css/default.min.css">
+    <link rel="stylesheet" href="https://m8e.ir/css/github-dark.min.css">
+    <script src="https://m8e.ir/js/highlight.min.js"></script>
+    
+    <meta name="robots" content="index,follow" />
+    
+    <meta name="description" content="Since Go was released, it has gotten better, and more tools and frameworks created for different purposes that make Go programming and maintenance easier. Choosing the right Golang HTTP framework ..." />
+    <meta property="og:title" content="5 ways to create an HTTP server in Golang" />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://m8e.ir/blog/2536308343-5-ways-to-create-an-http-server-in-golang.html" />
+    <meta property="og:image" content="https://github.com/user-attachments/assets/00500c45-f078-4f1a-a87e-b46100490372" />
+    <meta name="twitter:title" content="5 ways to create an HTTP server in Golang">
+    <meta name="twitter:description" content="Since Go was released, it has gotten better, and more tools and frameworks created for different purposes that make Go programming and maintenance easier. Choosing the right Golang HTTP framework ...">
+    <meta name="twitter:image" content="https://github.com/user-attachments/assets/00500c45-f078-4f1a-a87e-b46100490372">
+    <meta name="twitter:card" content="summary_large_image">
+    <title>5 ways to create an HTTP server in Golang</title>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-8DRQJK9YQB"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-8DRQJK9YQB');
+    </script>
+</head>
+<body>
+    <div class="container mt-2 mb-5 p-3">
+        <div class="row">
+            <div class="col-md-9 col-lg-8 col-sm-12 mx-auto">
+                <button 
+    onclick="window.location = 'https://m8e.ir'" 
+    class="btn text-secondary d-block my-4 p-0" 
+    style="cursor: pointer; font-size: .9em;"
+    >&#8592; Back to home page</button>
+                
+                    
+                        <div class="py-1 px-2 d-inline-block" style="font-size: smaller; border-radius: 100px; background-color: #D93F0B20; color: #D93F0B;" >software design</div>
+                    
+                        <div class="py-1 px-2 d-inline-block" style="font-size: smaller; border-radius: 100px; background-color: #132ad020; color: #132ad0;" >software development</div>
+                    
+                
+                <h1 id="post-title" class="text-body-emphasis">5 ways to create an HTTP server in Golang</h1>
+                <small class="text-body-secondary">
+                    <strong style="font-size: 15px;">Summary. </strong>
+                    <span id="summary-content">Since Go was released, it has gotten better, and more tools and frameworks created for different purposes that make Go programming and maintenance easier. Choosing the right Golang HTTP framework ... </span>
+                    <span><strong style="font-size: 15px;cursor: pointer;" id="summary-action">more</strong></span>
+                </small>
+                <a href="https://github.com/ARTM2000" style="text-decoration: none;" target="_blank" rel="follow">
+    <div class="row mt-4 mb-2 ml-2">
+        <div class="col-2 col-sm-2 col-lg-1 px-1">
+            <img class="d-block" src="https://avatars.githubusercontent.com/u/50656840?v=4" width="55px" style="border-radius: 30px; margin-left: 10px;" />
+        </div>
+        <div class="col-9 px-3 px-sm-1 px-md-1 px-lg-4 px-xl-1">
+            <p class="text-body-secondary my-0 mx-md-0" style="font-size: 18px;">Alireza Tanoomandian</p>
+            <small class="text-body-secondary" >2024-09-27</small>
+        </div>
+    </div>
+</a>
+<hr>
+                <div class="content mt-3">
+                    <p><img src="https://github.com/user-attachments/assets/00500c45-f078-4f1a-a87e-b46100490372" alt="5 ways to create an http server in go-min" />
+Go programming language (aka Golang) is one of the most interesting programming languages and is useful for different use cases. By definition, "Go is an open-source programming language that makes it easy to build simple, reliable, and efficient software". It's simple to learn, statically typed and gives you a binary executable as a build result. Since Go was released, it has gotten better, and more tools and frameworks created for different purposes that make Go programming and maintenance easier. </p>
+<p>Here we are demonstrating 5 ways to create an HTTP server and precisely explain their pros and cons. In each example we need to do four simple tasks:</p>
+<ol>
+<li>Serve static JSON on server <code>/</code></li>
+<li>Handle not-found requests and return a proper response</li>
+<li>Recover the server from panic and keep it up and running</li>
+<li>Log the requests by the server</li>
+</ol>
+<p>Although we can do much more on each case, like connecting to the DB, working with the file system, or adding authorization, it's considered to focus on base implementation and explain them further as needed.</p>
+<h2 id="1nethttpgopackage">1. <code>net/http</code> go package:</h2>
+<p>Here is the code:</p>
+<pre><code class="go language-go">package main
+
+import (
+    "encoding/json"
+    "fmt"
+    "log"
+    "net/http"
+)
+
+type baseResponse struct {
+    Message string                 `json:"message"`
+    Data    map[string]interface{} `json:"data"`
+}
+
+func handle404Request(w http.ResponseWriter) {
+    // set `Content-Type` header
+    w.Header().Add("Content-Type", "application/json")
+
+    // set response status code
+    w.WriteHeader(http.StatusNotFound)
+
+    // encode response struct to json
+    res, _ := json.Marshal(
+        baseResponse{
+            Message: "not found",
+            Data: map[string]interface{}{
+                "detail": "requested resource not found",
+            },
+        },
+    )
+
+    fmt.Fprint(w, string(res))
+
+    log.Default().Println("request resource not found")
+}
+
+func indexHandler(w http.ResponseWriter, r *http.Request) {
+    if r.Method != http.MethodGet || r.RequestURI != "/" {
+        handle404Request(w)
+        return
+    }
+
+    // encode response struct to json
+    res, _ := json.Marshal(
+        baseResponse{
+            Message: "http server is running with native package",
+            Data:    map[string]interface{}{"created_by": "ARTM2000"},
+        },
+    )
+
+    // set `Content-Type` header
+    w.Header().Add("Content-Type", "application/json")
+
+    // set response status code
+    w.WriteHeader(http.StatusOK)
+
+    // write the response
+    fmt.Fprint(w, string(res))
+}
+
+func main() {
+    http.HandleFunc("/", indexHandler)
+
+    defer func() {
+        if r := recover(); r != nil {
+            fmt.Println("panic recovered. error:\n", r)
+        }
+    }()
+
+    log.Default().Println("server listen on port 3000!")
+    err := http.ListenAndServe(":3000", nil)
+    if err != nil {
+        log.Fatalf("server failed to start: %s", err.Error())
+    }
+}
+</code></pre>
+<p>Let's dive in and explain what's happening. Here we are using the <a href="https://pkg.go.dev/net/http"><code>net/http</code></a> Go native package. We have <code>baseResponse</code> struct that forms our response structure and has the <code>Message</code> and <code>Data</code> fields. We assume that all of our responses should formatted as <code>baseResponse</code>. Then, we have <code>handle404Request</code> and <code>indexHandler</code>. In this way we call <code>handle404Request</code> within the <code>indexHandler</code> as <em>we can not register the request method or the URI pattern</em> and each handler should consider the case.</p>
+<p>As you can see on each handler after encoding the <code>baseResponse</code> struct to JSON, we have to manually write the response to the <code>http.ResponseWriter</code> and set the HTTP status code.</p>
+<p>In this example, we have no built-in logger or panic recovery and we can implement them in our desired way.</p>
+<h2 id="2fasthttpframework">2. <code>fasthttp</code> framework:</h2>
+<p>Here is the code:</p>
+<pre><code class="go language-go">package main
+
+import (
+    "encoding/json"
+    "fmt"
+    "log"
+    "net/http"
+
+    "github.com/valyala/fasthttp"
+)
+
+type baseResponse struct {
+    Message string                 `json:"message"`
+    Data    map[string]interface{} `json:"data"`
+}
+
+type requestHandler struct {}
+
+func (h *requestHandler) handle404Request(ctx *fasthttp.RequestCtx) {
+    ctx.SetContentType("application/json")
+    ctx.SetStatusCode(http.StatusNotFound)
+    res, _ := json.Marshal(
+        baseResponse{
+            Message: "not found",
+            Data: map[string]interface{}{
+                "detail": "request resource not found",
+            },
+        },
+    )
+    ctx.SetBody(res)
+
+    log.Default().Println("request resource not found")
+}
+
+func (h *requestHandler) indexHandler(ctx *fasthttp.RequestCtx) {
+    ctx.SetContentType("application/json")
+    ctx.SetStatusCode(http.StatusOK)
+    res, _ := json.Marshal(
+        baseResponse{
+            Message: "http server is running with fasthttp framework",
+            Data:    map[string]interface{}{"created_by": "ARTM2000"},
+        },
+    )
+    ctx.SetBody(res)
+}
+
+func (h *requestHandler) HandleRequests(ctx *fasthttp.RequestCtx) {
+    switch string(ctx.Path()) {
+    case "/":
+        if ctx.IsGet() {
+            h.indexHandler(ctx)
+            return
+        }
+        fallthrough
+
+    default:
+        h.handle404Request(ctx)
+    }
+}
+
+func main() {
+    h := requestHandler{}
+
+    defer func() {
+        if r := recover(); r != nil {
+            fmt.Println("panic recovered. error:\n", r)
+        }
+    }()
+
+    log.Default().Println("server listen on port 3000!")
+    err := fasthttp.ListenAndServe(":3000", h.HandleRequests)
+    if err != nil {
+        log.Fatalf("server failed to start: %s", err.Error())
+    }
+}
+</code></pre>
+<p><a href="https://github.com/valyala/fasthttp"><code>fasthttp</code></a> is another implementation of <code>HTTP</code> in Go to handle a real heavy load (i.e. more than a hundred thousand rps). As its document said:</p>
+<blockquote>
+  <p>fasthttp was designed for some high performance edge cases. Unless your server/client needs to handle thousands of small to medium requests per second and needs a consistent low millisecond response time fasthttp might not be for you. For most cases, net/http is much better as it's easier to use and can handle more cases. For most cases, you won't even notice the performance difference.</p>
+</blockquote>
+<p>Unlike <code>net/http</code>, the <code>fasthttp</code> doesn't have a built-in router and we have to manually route the request and the URL's pattern with their request methods. So we have a <code>requestHandler</code> struct with a <code>HandleRequests</code> method to act as a hard-coded router. Like the last example <em>we don't have a built-in logger or panic recovery</em> and we have to implement them manually. </p>
+<h2 id="3ginframework">3. <code>gin</code> framework:</h2>
+<p>Here is the code:</p>
+<pre><code class="go language-go">package main
+
+import (
+    "log"
+    "net/http"
+
+    "github.com/gin-gonic/gin"
+)
+
+type baseResponse struct {
+    Message string                 `json:"message"`
+    Data    map[string]interface{} `json:"data"`
+}
+
+func handle404Request(ctx *gin.Context) {
+    log.Default().Println("request resource not found")
+    ctx.JSON(
+        http.StatusNotFound,
+        baseResponse{
+            Message: "not found",
+            Data: map[string]interface{}{
+                "detail": "request resource not found",
+            },
+        },
+    )
+}
+
+func indexHandler(ctx *gin.Context) {
+    ctx.JSON(
+        http.StatusOK,
+        baseResponse{
+            Message: "http server is running with gin framework",
+            Data:    map[string]interface{}{"created_by": "ARTM2000"},
+        },
+    )
+}
+
+func main() {
+    gin.SetMode(gin.ReleaseMode)
+
+    router := gin.New()
+
+    router.Use(gin.Logger())
+    router.Use(gin.Recovery())
+
+    router.GET("/", indexHandler)
+    router.NoRoute(handle404Request)
+
+    log.Default().Println("server listen on port 3000!")
+    err := router.Run(":3000")
+    if err != nil {
+        log.Fatalf("server failed to start: %s", err.Error())
+    }
+}
+</code></pre>
+<p><a href="https://github.com/gin-gonic/gin"><code>gin</code></a> framework is one the most popular HTTP frameworks in Go with more than 78K stars at the time of writing this article. It supports built-in routing with HTTP-method declaration on handler registeration, built-in logger and recovery, and some other stuff. As you can see, it's much easier than the explained way due to built-in JSON serialization, setting status, and more. It's also well integrated with other well-known Go packages, such as GORM.</p>
+<h2 id="4fiberframework">4. <code>fiber</code> framework:</h2>
+<p>Here is the code:</p>
+<pre><code class="go language-go">package main
+
+import (
+    "log"
+    "net/http"
+
+    "github.com/gofiber/fiber/v2"
+    "github.com/gofiber/fiber/v2/middleware/logger"
+    "github.com/gofiber/fiber/v2/middleware/recover"
+)
+
+type baseResponse struct {
+    Message string                 `json:"message"`
+    Data    map[string]interface{} `json:"data"`
+}
+
+func handle404Request(ctx *fiber.Ctx) error {
+    return ctx.Status(http.StatusNotFound).JSON(
+        baseResponse{
+            Message: "not found",
+            Data: map[string]interface{}{
+                "detail": "request resource not found",
+            },
+        },
+    )
+}
+
+func indexHandler(ctx *fiber.Ctx) error {
+    return ctx.Status(http.StatusOK).JSON(
+        baseResponse{
+            Message: "http server is running with fiber framework",
+            Data:    map[string]interface{}{"created_by": "ARTM2000"},
+        },
+    )
+}
+
+func main() {
+    app := fiber.New(fiber.Config{
+        DisableStartupMessage: true,
+    })
+
+    app.Use(recover.New(recover.Config{EnableStackTrace: true}))
+    app.Use(logger.New())
+
+    app.Get("/", indexHandler)
+
+    // not found routes handler should add at the end to catch any unhandled routes
+    app.Use(handle404Request)
+
+    log.Default().Println("server listen on port 3000!")
+    err := app.Listen(":3000")
+    if err != nil {
+        log.Fatalf("server failed to start: %s", err.Error())
+    }
+}
+</code></pre>
+<p><a href="https://github.com/gofiber/fiber/tree/main"><code>fiber</code></a> framework is another popular Go HTTP framework with more than 33K stars at the time of writing this article. Fiber is written on the top of <code>fasthttp</code> which makes it extremely fast and performant. It also has built-in logger and panic recovery as middleware packages that help to better manage your project dependencies size. In addition, so many middlewares for different purposes are available that can easily adopted and configured by your project needs.</p>
+<p>As you can see, the same JSON serialization is available and the handler structure looks like <code>gin</code>. Fiber could also easily be integrated into external packages such as GORM or go-redis and any other packages. I recommend having a look at the <a href="https://docs.gofiber.io/">fiber documentation</a> for more information.</p>
+<h2 id="5echoframework">5. <code>echo</code> framework:</h2>
+<p>Here is the code: </p>
+<pre><code class="go language-go">package main
+
+import (
+    "log"
+    "net/http"
+
+    "github.com/labstack/echo/v4"
+    "github.com/labstack/echo/v4/middleware"
+)
+
+type baseResponse struct {
+    Message string                 `json:"message"`
+    Data    map[string]interface{} `json:"data"`
+}
+
+func handle404Request(ctx echo.Context) error {
+    return ctx.JSON(
+        http.StatusNotFound,
+        baseResponse{
+            Message: "not found",
+            Data: map[string]interface{}{
+                "detail": "request resource not found",
+            },
+        },
+    )
+}
+
+func indexHandler(ctx echo.Context) error {
+    return ctx.JSON(http.StatusOK,
+        baseResponse{
+            Message: "http server is running with echo framework",
+            Data:    map[string]interface{}{"created_by": "ARTM2000"},
+        },
+    )
+}
+
+func main() {
+    app := echo.New()
+
+    app.Use(middleware.Logger())
+    app.Use(middleware.Recover())
+
+    app.GET("/", indexHandler)
+    app.RouteNotFound("/*", handle404Request)
+
+    log.Default().Println("server listen on port 3000!")
+    app.Logger.Fatal(app.Start(":3000"))
+}
+</code></pre>
+<p><a href="https://github.com/labstack/echo"><code>echo</code></a> framework with more than 29K stars at the time is another well-known Go HTTP framework. At first look nothing is new, the syntax looks the same as the <code>gin</code> framework but its documentation is so much better and has so many use cases and examples to get the work done. It also supports HTTP2 by itself.</p>
+<h2 id="comparison">Comparison</h2>
+<p>Here's a comparison of the pros and cons of <code>net/http</code>, <code>fasthttp</code>, <code>gin</code>, <code>fiber</code>, and <code>echo</code>:</p>
+<table>
+<thead>
+<tr>
+<th>Framework</th>
+<th>Pros</th>
+<th>Cons</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>net/http</strong></td>
+<td>- Standard library, widely used and well-documented. - Minimal API, offering flexibility and control. - Built-in support for features like HTTP/2 and TLS.</td>
+<td>- Can be verbose and require more manual coding. - Limited built-in features compared to other frameworks. - Larger memory footprint compared to some alternatives.</td>
+</tr>
+<tr>
+<td><strong>fasthttp</strong></td>
+<td>- Extremely high performance and low latency. - Minimal API, focusing on raw performance. - Asynchronous request handling for efficient concurrency.</td>
+<td>- There is a steep learning curve due to its minimal API. - Limited built-in features and community support. - More manual configuration is required for features like middleware and routing.</td>
+</tr>
+<tr>
+<td><strong>gin</strong></td>
+<td>- High performance and efficient. - Clean and concise API with a focus on developer experience. - Built-in support for middleware, routing, and validation. - Extensive documentation and active community.</td>
+<td>- May lack some advanced features compared to other frameworks. - Limited database integration options.</td>
+</tr>
+<tr>
+<td><strong>fiber</strong></td>
+<td>- Extremely high performance and lightweight. - Modular design with a wide range of plugins available. - Built-in support for routing, middleware, and templating. - Active community and growing ecosystem.</td>
+<td>- Community may be smaller than some other options.</td>
+</tr>
+<tr>
+<td><strong>echo</strong></td>
+<td>- Highly customizable and extensible framework. - High performance and scalability. - Flexible routing and middleware system. - Support for various template engines and database drivers. - Active community and growing ecosystem.</td>
+<td>- Can be slightly more complex than Gin for simple use cases. - Documentation may not be as comprehensive as other frameworks.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="conclusion">Conclusion:</h2>
+<p>Choosing the right framework depends on your specific needs and priorities. </p>
+<ul>
+<li><strong>net/http</strong>: Ideal for simple applications where performance is not a critical concern and you value flexibility and control.</li>
+<li><strong>fasthttp</strong>: Best suited for high-performance applications with demanding latency requirements and resource constraints.</li>
+<li><strong>gin</strong>: A good choice for developers who value simplicity, clean code, and built-in features.</li>
+<li><strong>fiber</strong>: Excellent option for high-performance applications with a preference for modularity and extensive plugin support.</li>
+<li><strong>echo</strong>: Suitable for developers who require a highly customizable and extensible framework with a broad range of features.</li>
+</ul>
+<p>Ultimately, the best way to choose is to experiment with each framework and evaluate which aligns best with your project's goals and development style.</p>
+<p>If you want to explore more, have a look at the code explained <a href="https://github.com/ARTM2000/bfiles/tree/master/ways_to_create_http_server_in_go">here</a> on my GitHub page.</p>
+                </div>
+                <div class="social-wrapper"
+                    style="display: flex; justify-content: center;"
+                >
+                    <div 
+                    class="my-2 border border-2 d-inline-block pr-3 mx-auto"
+                    style="border-radius: 10px; cursor: pointer;"
+                    >
+                    <div 
+                        class="d-inline-block p-2 my-2" 
+                        style="border-radius: 10px; cursor: pointer;"
+                    >
+                        <div class="d-inline-block mx-2">
+                            <img 
+                                src="/img/linkedin-social.png" 
+                                alt="linkedin_share" 
+                                width="25px" 
+                                onclick="window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(window.location.href)}`)">
+                        </div>
+                        <div class="d-inline-block mx-2">
+                            <img 
+                                src="/img/twitter.png" 
+                                alt="twitter_share" 
+                                width="20px" 
+                                onclick="window.open(`https://twitter.com/intent/tweet?url=${encodeURIComponent(window.location.href)}&text=${encodeURIComponent('Check out this!')}`)">
+                        </div>
+                        <div class="d-inline-block mx-2">
+                            <img 
+                                src="/img/telegram.png" 
+                                alt="telegram_share" 
+                                width="25px"
+                                onclick="window.open(`https://t.me/share/url?url=${encodeURIComponent(window.location.href)}&text=${encodeURIComponent('Check out this!')}`)">
+                        </div>
+                    </div>
+                    <div class="d-inline-block my-2">|</div>
+                    <div class="d-inline-block">
+                        
+                        <p 
+                            id="post-link"
+                            class="d-inline-block my-2 py-2 px-2" 
+                            style="border-radius: 10px; cursor: pointer; width: 120px;"
+                            onclick="document.execCommand('copy')"
+                        >
+                            <img src="/img/copy.png" style="margin-right: 3px;" width="25px" alt="copy" /><span id="link"> Copy link</span>
+                        </p>
+                    </div>
+                </div>
+                </div>
+                <a href="https://github.com/ARTM2000" style="text-decoration: none;" target="_blank" rel="follow">
+    <div class="row mt-4 mb-2 ml-2">
+        <div class="col-2 col-sm-2 col-lg-1 px-1">
+            <img class="d-block" src="https://avatars.githubusercontent.com/u/50656840?v=4" width="55px" style="border-radius: 30px; margin-left: 10px;" />
+        </div>
+        <div class="col-9 px-3 px-sm-1 px-md-1 px-lg-4 px-xl-1">
+            <p class="text-body-secondary my-0 mx-md-0" style="font-size: 18px;">Alireza Tanoomandian</p>
+            <small class="text-body-secondary" >2024-09-27</small>
+        </div>
+    </div>
+</a>
+<hr>
+                <div class="row">
+                    <div class="col-12 col-md-6 my-3">
+                        
+                            <a href="https://m8e.ir/blog/2397766859-don&#39;t-treat-technical-design-document-as-a-dilemma.html" style="text-decoration: none;">
+                                <div class="px-3 py-3 border border-1 text-body-emphasis" style="border-radius: 10px;">
+                                    <h5>Don&#39;t treat technical design document as a dilemma!</h5>
+                                    <p class="my-1">&#171; Previous Post</p>
+                                </div>
+                            </a>
+                        
+                    </div>
+                    <div class="col-12 col-md-6 my-3">
+                        
+                    </div>
+                </div>
+                <button 
+    onclick="window.location = 'https://m8e.ir'" 
+    class="btn text-secondary d-block my-4 p-0" 
+    style="cursor: pointer; font-size: .9em;"
+    >&#8592; Back to home page</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.querySelectorAll(".content a").forEach(a => {
+            if (a.href.indexOf("https://m8e.ir") > -1) {
+                a.rel = "follow"
+            } else {
+                a.target = "_blank";
+                a.rel = "nofollow";
+            }
+        });
+
+        document.querySelectorAll(".content blockquote").forEach(b => {
+            if (b.children.length > 1) {
+                const blockQuotes = []
+                for (let i = 0; i < b.children.length; i++) {
+                    const newB = document.createElement("blockquote")
+                    const ch = document.createElement(b.children[i].tagName.toLowerCase())
+                    ch.innerHTML = b.children[i].innerHTML;
+                    newB.appendChild(ch);
+                    blockQuotes.push(newB);
+                }
+
+                b.replaceWith(...blockQuotes);
+            }
+        });
+
+        document.getElementById('post-link').addEventListener('copy', (e) => {
+            e.preventDefault();
+            if (e.clipboardData) {
+                e.clipboardData.setData('text/plain', 'https://m8e.ir/l/?p=2536308343')
+                document.getElementById('link').innerText = " Copied!"
+                setTimeout(() => {
+                    document.getElementById('link').innerText = " Copy Link";
+                }, 1000)
+            }
+        });
+
+        document.querySelectorAll('.content img').forEach(img => {
+            const next = img.nextElementSibling;
+            if (!!next && next.tagName.toLowerCase() === "small") {
+                next.style = "display: block; font-size: 13px"
+                next.className += " text-body-secondary";
+            }
+        })
+
+        const fullSummary = 'Since Go was released, it has gotten better, and more tools and frameworks created for different purposes that make Go programming and maintenance easier. Choosing the right Golang HTTP framework depends on your priorities. net/http offers flexibility and control but can be verbose. FastHTTP prioritizes performance but requires more manual configuration. Gin and Fiber balance performance and features, while Echo is highly customizable. Consider your project's needs and your development style to make the best choice.';
+        const previewSummary = 'Since Go was released, it has gotten better, and more tools and frameworks created for different purposes that make Go programming and maintenance easier. Choosing the right Golang HTTP framework ...';
+        document.getElementById('summary-action').addEventListener('click', (e) => {
+            console.log(e.target.innerText);
+            if (e.target.innerText === 'more') {
+                document.getElementById('summary-content').innerText = fullSummary;
+                e.target.innerText = 'close';
+            } else {
+                document.getElementById('summary-content').innerText = previewSummary;
+                e.target.innerText = 'more';
+            }
+        })
+    </script>
+    <footer>
+	<div class="container mt-5">
+		<hr />
+        <div class="row my-4 px-1">
+            <div class="col-12">
+                <code class="text-body-emphasis">Created with ☕. Powered by GitHub</code>
+            </div>
+        </div>
+        <div class="d-inline-block px-2">
+            <a href="https://github.com/ARTM2000" target="_blank">
+                <img src="https://m8e.ir/img/github-mark-white.png" width="30px" alt="github" />
+            </a>
+        </div>
+        <div class="d-inline-block px-2">
+            <a href="https://linkedin.com/in/alirezatanoomandian" target="_blank">
+                <img src="https://m8e.ir/img/linkedin.png" width="30px" alt="linkedin" />
+            </a>
+        </div>
+        <br><br><br><br><br>
+	</div>
+	<script defer>
+		hljs.highlightAll();
+	</script>
+	<script defer>
+		// const darkModeActive = document.querySelector('html').dataset.bsTheme === 'dark'
+		document.querySelectorAll("table").forEach((element) => {
+			element.className +=
+				" table table-striped table-bordered border border-3";
+		});
+		document.querySelectorAll("tbody").forEach((element) => {
+			element.className += " table-group-divider";
+		});
+	</script>
+</footer>
+
+</body>
