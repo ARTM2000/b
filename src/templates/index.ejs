@@ -5,17 +5,20 @@
             <%- content.introduction %>
         </div>
         <div class="row">
-            <div class="col-lg-8 col-sm-12">
+            <div class="col-12">
                 <div class="w-100 p-2 mt-3 mb-3" id="blog_list">
                     <% if (posts.length === 0) { %>
                      <h4 class="text-body-emphasis my-4 text-center">
                         We'll come soon 😉
                      </h4>
+                    <% } else { %>
+                    <div class="row">
+                        <% posts.forEach(post => { %>
+                            <!-- item list -->
+                            <%- include('post-item.ejs', { post: post }) %>
+                        <% }) %>
+                    </div>
                     <% } %>
-                    <% posts.forEach(post => { %>
-                    <!-- item list -->
-                    <%- include('post-item.ejs', { post: post }) %>
-                    <% }) %>
                 </div>
             </div>
         </div>

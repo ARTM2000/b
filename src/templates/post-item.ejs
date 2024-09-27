@@ -1,15 +1,19 @@
-<div class="card mt-2 mb-3 border border-2" style="border-radius: 10px;">
-    <a href="<%= post.url %>" rel="follow" style="text-decoration: none; cursor: pointer;">
-        <div class="card-body">
-            <small class="text-body-secondary" ><%= post.formattedPublishedAt %></small><br/>
-            <h4 class="card-title text-body-emphasis mt-2"><%= post.title %></h4>
-            <p class="card-text text-body-secondary mb-1"><%= post.subTitle %></p>
-            <p class="cart-text text-body-emphasis mt-1 mb-2">Read more &#8594;</p>
-            <% if (post.categories.length > 0) { %>
-                <% post.categories.forEach((c, i) => { %>
-                     <div class="py-1 px-2 d-inline-block text-body-secondary" style="background-color: #0000002f; border-radius: 6px;"><%= c.name %></div>
-                <% }) %>
-            <% } %>
-        </div>
-    </a>
+<div class="col-12 col-md-6 col-lg-6 col-xl-4">
+    <div class="card mt-2 mb-3" style="border-radius: 10px; overflow: hidden;">
+        <a href="<%= post.url %>" rel="follow" style="text-decoration: none; cursor: pointer;">
+            <div style="width: 100%; height: 250px; background-color: #7d7d7d2f; background-position: center; background-size: cover; background-image: url(<%= post.mainImage %>);"></div>
+            <img src="<%= post.mainImage %>" loading="lazy" hidden>
+            <div class="card-body">
+                <small class="text-body-secondary" ><%= post.formattedPublishedAt %></small><br/>
+                <h4 class="card-title text-body-emphasis mt-2"><%= post.title %></h4>
+                <p class="card-text text-body-secondary mb-1" style="min-height: 109px;"><%= post.subTitle %></p>
+                <p class="cart-text text-body-emphasis mt-1 mb-2">Read more &#8594;</p>
+                <% if (post.categories.length > 0) { %>
+                    <% post.categories.forEach((c, i) => { %>
+                         <div class="py-1 px-2 mb-1 d-inline-block text-body-secondary" style="background-color: #0000002f; border-radius: 6px;"><%= c.name %></div>
+                    <% }) %>
+                <% } %>
+            </div>
+        </a>
+    </div>
 </div>

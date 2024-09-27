@@ -1,7 +1,7 @@
 <%- include('head.ejs') %>
 <body>
     <div class="container my-5">
-        <pre class="mt-1 mb-2 col-12 col-md-8 mx-auto">
+        <pre class="mt-1 mb-2 col-12 mx-auto">
             <code class="bash language-bash">
 #!/usr/bin/env bash
 #
@@ -19,14 +19,16 @@
 #                    
             </code>
         </pre>
-        <div class="col-12 col-md-8 mx-auto">
+        <div class="col-12 mx-auto">
             <% if (posts.length > 0) { %>
-                <h4 class="text-body-emphasis mb-4">Here is other available contents: </h4>
+            <h4 class="text-body-emphasis mb-4">Here is other available contents: </h4>
+            <div class="row">
+                <% posts.forEach(post => { %>
+                <!-- item list -->
+                <%- include('post-item.ejs', { post: post }) %>
+                <% }) %>
+            </div>
             <% } %>
-            <% posts.forEach(post => { %>
-            <!-- item list -->
-            <%- include('post-item.ejs', { post: post }) %>
-            <% }) %>
             <%- include('back-to-home.ejs') %>
         </div>
     </div>
