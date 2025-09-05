@@ -77,18 +77,18 @@
                     <p><img src="https://github.com/user-attachments/assets/a3aa708f-4b1f-48fa-94b9-0181623c0cdb" alt="Image" /></p>
 <p><strong>Table of Contents:</strong></p>
 <ul>
-<li>Introduction to Hibernate and Spring Boot</li>
-<li>Different Hibernate cache levels</li>
-<li>Why use Hibernate 2nd-level cache instead of Spring Boot Starter Cache</li>
-<li>How does the Hibernate second-level cache work?</li>
-<li>Dive into code<ul>
-<li>Initialize project</li>
-<li>Add CRUD routes and service for the <code>note</code> entity</li>
-<li>Choose a cache provider and set it up</li>
-<li>Connect Hibernate with Redis</li>
-<li>Configure the Redis Client</li>
-<li>Bring it all together!</li></ul></li>
-<li>Wrap it up!</li>
+<li><a href="#introductiontohibernateandspringboot">Introduction to Hibernate and Spring Boot</a></li>
+<li><a href="#differenthibernatecachelevels">Different Hibernate cache levels</a></li>
+<li><a href="#whyusehibernatesecondlevelcacheinsteadofspringbootstartercache">Why use Hibernate 2nd-level cache instead of Spring Boot Starter Cache</a></li>
+<li><a href="#howdoesthehibernatesecondlevelcachework">How does the Hibernate second-level cache work?</a></li>
+<li><a href="#diveintocode">Dive into code</a><ul>
+<li><a href="#initializeproject">Initialize project</a></li>
+<li><a href="#addcrudroutesandserviceforthenoteentity">Add CRUD routes and service for the <code>note</code> entity</a></li>
+<li><a href="#chooseacacheproviderandsetitup">Choose a cache provider and set it up</a></li>
+<li><a href="#connecthibernatewithredis">Connect Hibernate with Redis</a></li>
+<li><a href="#configuretheredisclient">Configure the Redis Client</a></li>
+<li><a href="#bringitalltogether">Bring it all together!</a></li></ul></li>
+<li><a href="#wrapitup">Wrap it up!</a></li>
 </ul>
 <h2 id="introductiontohibernateandspringboot">Introduction to Hibernate and Spring Boot</h2>
 <p>If you’ve ever built a Java app that talks to a database, you probably know the pain of writing endless SQL queries and mapping rows to Java objects. That’s where Hibernate comes in. It’s an ORM (Object-Relational Mapping) framework that takes care of all that boilerplate for you. Instead of juggling SQL and Java code, you work with plain Java objects, and Hibernate handles the persistence layer.</p>
@@ -443,22 +443,26 @@ public class Note {
 </code></pre>
 <p>There are 4 types of eviction strategies:</p>
 <ul>
-<li><p><strong>Read-Only</strong></p></li>
-<li><p>Best for reference data that never changes (e.g., country codes).</p></li>
-<li><p>Entities are cached and never updated.</p></li>
-<li><p>Any attempt to update results in an exception.</p></li>
-<li><p><strong>Read-Write</strong></p></li>
-<li><p>Safe for mutable entities.</p></li>
-<li><p>Uses “soft locks” to ensure only one transaction updates a cached entry at a time.</p></li>
-<li><p>Ensures strong consistency but with some performance cost.</p></li>
-<li><p><strong>Nonstrict-Read-Write</strong></p></li>
-<li><p>Allows cached entities to become stale for a short time.</p></li>
-<li><p>No strict locking; entries are evicted on update.</p></li>
-<li><p>Offers better performance but weaker consistency.</p></li>
-<li><p><strong>Transactional</strong></p></li>
-<li><p>Requires a fully transactional cache provider (e.g., JTA with Infinispan).</p></li>
-<li><p>Guarantees the strongest consistency between cache and database.</p></li>
-<li><p>Mostly used in advanced enterprise setups.</p></li>
+<li><p><strong>Read-Only</strong></p>
+<ul>
+<li>Best for reference data that never changes (e.g., country codes).</li>
+<li>Entities are cached and never updated.</li>
+<li>Any attempt to update results in an exception.</li></ul></li>
+<li><p><strong>Read-Write</strong></p>
+<ul>
+<li>Safe for mutable entities.</li>
+<li>Uses “soft locks” to ensure only one transaction updates a cached entry at a time.</li>
+<li>Ensures strong consistency but with some performance cost.</li></ul></li>
+<li><p><strong>Nonstrict-Read-Write</strong></p>
+<ul>
+<li>Allows cached entities to become stale for a short time.</li>
+<li>No strict locking; entries are evicted on update.</li>
+<li>Offers better performance but weaker consistency.</li></ul></li>
+<li><p><strong>Transactional</strong></p>
+<ul>
+<li>Requires a fully transactional cache provider (e.g., JTA with Infinispan).</li>
+<li>Guarantees the strongest consistency between cache and database.</li>
+<li>Mostly used in advanced enterprise setups.</li></ul></li>
 </ul>
 <p>You can pick one of them based on your requirement.</p>
 <h4 id="customizeregionname">Customize region name</h4>
@@ -515,7 +519,7 @@ public interface NoteRepository extends JpaRepository&lt;Note, Long&gt; {
 <p>By default, <code>org.redisson.hibernate.RedissonRegionFactory</code> reads its configuration from <code>src/main/resources/redisson.json</code> or <code>src/main/resources/redisson.yaml</code>, and you can configure it with this file. <a href="https://redisson.pro/docs/configuration/#using-yaml">Here is more info</a>.</p>
 <p>It should work if you have the same properties for different deployments and running environments, but unfortunately, it's not a common case, and the connection properties, credentials, host, and many more parameters are different for each environment. So, suppose you plan to run the application with different profiles (e.g., local, demo, or production). In that case, you will face some problems as this region factory did not load in the scope of the Spring Boot app, and the related profile properties did not affect anything. </p>
 <p>So, to solve this issue, you can create a new <code>RegionFactory</code> class that extends the <code>RedissonRegionFactory</code> and override the <code>createRedissonClient</code> method with some tricks to load properties from <code>application.properties</code> or load the <em>active profile</em> configuration.</p>
-<p>But before all, we need a Redisson client to load the configuration from our desired source, like <code>application.properties</code>. As its way clean to use this configuration as <strong>Bean</strong> for further Redis usecases, we create <strong>configuration</strong> class as follows with an static method to build a client and use it into bean method:</p>
+<p>But before all, we need a Redisson client to load the configuration from our desired source, like <code>application.properties</code>. As it's clean to use this configuration as <strong>Bean</strong> for further Redis use cases, we create <strong>configuration</strong> class as follows, with a static method to build a client and use it in a bean method:</p>
 <pre><code class="java language-java">// src/main/java/me/artm2000/hibernatecache/common/config/RedisConfig.java
 package me.artm2000.hibernatecache.common.config;
 
