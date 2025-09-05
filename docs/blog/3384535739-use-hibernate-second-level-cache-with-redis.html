@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://m8e.ir/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://m8e.ir/css/bootstrap.rtl.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet" type="text/css" />
+    <script src="https://m8e.ir/js/bootstrap.bundle.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- <link rel="stylesheet" href="https://m8e.ir/css/root.css"> -->
+    <link rel="stylesheet" href="/css/root.css">
+    <link rel="stylesheet" href="https://m8e.ir/css/default.min.css">
+    <link rel="stylesheet" href="https://m8e.ir/css/github-dark.min.css">
+    <script src="https://m8e.ir/js/highlight.min.js"></script>
+    
+    <meta name="robots" content="index,follow" />
+    
+    <meta name="description" content="Hibernate comes with a powerful caching mechanism that can dramatically cut down on database queries when used correctly. By default, every Session in Hibernate has a built-in first-level cache, but ..." />
+    <meta property="og:title" content="Use Hibernate second level cache with redis" />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://m8e.ir/blog/3384535739-use-hibernate-second-level-cache-with-redis.html" />
+    <meta property="og:image" content="https://github.com/user-attachments/assets/a3aa708f-4b1f-48fa-94b9-0181623c0cdb" />
+    <meta name="twitter:title" content="Use Hibernate second level cache with redis">
+    <meta name="twitter:description" content="Hibernate comes with a powerful caching mechanism that can dramatically cut down on database queries when used correctly. By default, every Session in Hibernate has a built-in first-level cache, but ...">
+    <meta name="twitter:image" content="https://github.com/user-attachments/assets/a3aa708f-4b1f-48fa-94b9-0181623c0cdb">
+    <meta name="twitter:card" content="summary_large_image">
+    <title>Use Hibernate second level cache with redis</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="/img/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-8DRQJK9YQB"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-8DRQJK9YQB');
+    </script>
+</head>
+<body>
+    <div class="container mt-2 mb-5 p-3">
+        <div class="row">
+            <div class="col-md-9 col-lg-8 col-sm-12 mx-auto">
+                
+                    
+                        <div class="py-1 px-2 d-inline-block text-body-secondary" style="background-color: #0000002f; border-radius: 6px;">software design</div>
+                    
+                        <div class="py-1 px-2 d-inline-block text-body-secondary" style="background-color: #0000002f; border-radius: 6px;">system maintenance</div>
+                    
+                        <div class="py-1 px-2 d-inline-block text-body-secondary" style="background-color: #0000002f; border-radius: 6px;">software development</div>
+                    
+                
+                <h1 id="post-title" class="text-body-emphasis mt-3">Use Hibernate second level cache with redis</h1>
+                <small class="text-body-secondary">
+                    <strong style="font-size: 15px;">Summary. </strong>
+                    <span id="summary-content">Hibernate comes with a powerful caching mechanism that can dramatically cut down on database queries when used correctly. By default, every Session in Hibernate has a built-in first-level cache, but ... </span>
+                    <span><strong style="font-size: 15px;cursor: pointer;" id="summary-action">more</strong></span>
+                </small>
+                <a href="https://github.com/ARTM2000" style="text-decoration: none;" target="_blank" rel="follow">
+    <div class="row mt-4 mb-2 ml-2">
+        <div class="col-2 col-sm-2 col-lg-1 px-1">
+            <img class="d-block" src="https://avatars.githubusercontent.com/u/50656840?v=4" width="55px" style="border-radius: 30px; margin-left: 10px;" />
+        </div>
+        <div class="col-9 px-3 px-sm-1 px-md-1 px-lg-4 px-xl-1">
+            <p class="text-body-secondary my-0 mx-md-0" style="font-size: 18px;">Alireza Tanoomandian</p>
+            <small class="text-body-secondary" >2025-09-05</small>
+        </div>
+    </div>
+</a>
+<hr>
+                <div class="content mt-3">
+                    <p><img src="https://github.com/user-attachments/assets/a3aa708f-4b1f-48fa-94b9-0181623c0cdb" alt="Image" /></p>
+<p><strong>Table of Contents:</strong></p>
+<ul>
+<li>Introduction to Hibernate and Spring Boot</li>
+<li>Different Hibernate cache levels</li>
+<li>Why use Hibernate 2nd-level cache instead of Spring Boot Starter Cache</li>
+<li>How does the Hibernate second-level cache work?</li>
+<li>Dive into code<ul>
+<li>Initialize project</li>
+<li>Add CRUD routes and service for the <code>note</code> entity</li>
+<li>Choose a cache provider and set it up</li>
+<li>Connect Hibernate with Redis</li>
+<li>Configure the Redis Client</li>
+<li>Bring it all together!</li></ul></li>
+<li>Wrap it up!</li>
+</ul>
+<h2 id="introductiontohibernateandspringboot">Introduction to Hibernate and Spring Boot</h2>
+<p>If you’ve ever built a Java app that talks to a database, you probably know the pain of writing endless SQL queries and mapping rows to Java objects. That’s where Hibernate comes in. It’s an ORM (Object-Relational Mapping) framework that takes care of all that boilerplate for you. Instead of juggling SQL and Java code, you work with plain Java objects, and Hibernate handles the persistence layer.</p>
+<p>Why developers love Hibernate:</p>
+<ul>
+<li>It hides the database complexities and lets you think in terms of objects.</li>
+<li>It works with pretty much any relational database without much hassle.</li>
+<li>It has caching support built in (which is exactly what we’ll talk about in this blog).</li>
+</ul>
+<p>At its core, Hibernate saves you from writing repetitive data access code and keeps your app clean and maintainable.</p>
+<p>Now, let’s talk Spring Boot. If Hibernate saves you from database headaches, Spring Boot saves you from the headache of configuring and wiring up your application. It’s basically the “batteries included” version of the Spring framework.</p>
+<p>With Spring Boot, you don’t have to spend hours setting up XML files or configuring servers. You just add the right starter dependency, and you’re good to go. Spring Boot is the reason many developers can spin up a production-ready Java app in minutes instead of days.</p>
+<p>Put Hibernate and Spring Boot together, and you’ve got a powerful combo: Hibernate takes care of your database layer, while Spring Boot gives you the scaffolding to build and run your app smoothly. And with Hibernate’s caching features, you can squeeze out even more performance — which is exactly what we’re going to explore in this post.</p>
+<h2 id="differenthibernatecachelevels">Different Hibernate cache levels</h2>
+<p>Hibernate provides different cache layers to avoid hitting the database more than necessary. <strong>The first-level cache</strong> is <strong>always on</strong> and lives within a single <code>Session</code>. A Session in Hibernate represents a unit of work with the database. It is created from a SessionFactory and usually tied to the lifecycle of a single request in a web application. Any entity you load during that session is kept in <em>memory</em>, so repeated fetches of the same object won’t trigger new queries. This is why calling <code>session.get(User.class, 1)</code> twice within the same session only hits the database once. The cache is automatically cleared when the session ends, which happens either when you explicitly close it by calling session.close() or when the framework (for example, Spring) manages the session lifecycle and disposes of it after the request completes. <em>Once the session is closed, all cached entities are gone.</em></p>
+<p><strong>The second-level cache</strong>, on the other hand, lives at the <code>SessionFactory</code> level and can be shared across multiple sessions. It is not enabled by default and requires configuration with a provider such as <em>Ehcache</em>, <em>Caffeine</em>, or <em>Redis</em>. This cache is especially useful in <strong>read-heavy</strong> applications because it allows different sessions to <strong>reuse</strong> the same data instead of constantly querying the database.</p>
+<p>On top of that, Hibernate also offers a <strong>query cache</strong>, which stores the results of queries rather than the entities themselves. It relies on the second-level cache to actually serve the entities, so it is more of an optimization for frequently executed queries like “top ten products.” Finally, there is an optional natural ID cache that speeds up lookups for entities identified by business keys such as email or username.</p>
+<p>In short, the first-level cache works within a single session and is always available, the second-level cache works across sessions and needs explicit setup, while query and natural ID caches are optional layers for special use cases.</p>
+<p>In the following, we try to cover the second-level cache and query cache.</p>
+<h2 id="whyusehibernatesecondlevelcacheinsteadofspringbootstartercache">Why Use Hibernate Second-Level Cache Instead of Spring Boot Starter Cache</h2>
+<p>At first glance, you might think: <em>“Spring Boot already has a caching abstraction (<code>@EnableCaching</code>, <code>@Cacheable</code>, etc.), so why not just use that?”</em> And that’s a fair question. The difference really comes down to <strong>what is being cached</strong> and <strong>how eviction is handled</strong>.</p>
+<p>Spring Boot Starter Cache is a <strong>general-purpose caching abstraction</strong>. It’s designed to let you cache arbitrary method results anywhere in your application. You decide what goes into the cache and when, usually through annotations like <code>@Cacheable</code>, <code>@CacheEvict</code>, and <code>@CachePut</code>. This is great for business logic — for example, caching the result of a slow API call, or storing some computed value for a few minutes. But it doesn’t know anything about Hibernate sessions, persistence contexts, or database entity state. You have to manage consistency yourself.</p>
+<p>Hibernate’s second-level cache, on the other hand, is <strong>deeply integrated into the ORM layer</strong>. It automatically kicks in when you load or update entities, and it ensures that cache entries stay consistent with the database. When you fetch an entity for the first time, Hibernate puts it into the second-level cache. When you update or delete that entity, Hibernate automatically evicts or refreshes the cache entry so you never serve stale data. The eviction process here is tightly coupled to Hibernate’s transaction and flush cycle, meaning you don’t have to sprinkle manual <code>@CacheEvict</code> annotations in your code — Hibernate handles it for you.</p>
+<p>Another key difference is <strong>scope</strong>. With Spring Boot’s caching, you’re caching method results — it’s an application-level concern. With Hibernate second-level cache, you’re caching entities and query results — it’s a database-level concern. This makes Hibernate’s cache a better fit when your primary goal is reducing database load, especially in <strong>read-heavy</strong> systems where the same entities are fetched repeatedly by different users or requests.</p>
+<p>In short:</p>
+<ul>
+<li>Use <strong>Spring Boot Cache</strong> if you want to cache method results, API responses, or any kind of computed value that isn’t directly tied to database state.</li>
+<li>Use <strong>Hibernate Second-Level Cache</strong> if you want to cache database entities and queries, with built-in eviction and synchronization to keep things consistent with your database.</li>
+</ul>
+<p>By focusing on the second-level cache for database-related caching, you get the best of both worlds: automatic entity-level caching with proper eviction and a big drop in database round-trips. You can still use Spring Boot’s caching abstraction in other parts of your app, but for persistence, Hibernate’s built-in cache is the more reliable and specialized tool.</p>
+<h2 id="howdoesthehibernatesecondlevelcachework">How does the Hibernate second-level cache work?</h2>
+<p>The second-level cache in Hibernate sits above individual sessions and is tied to the <code>SessionFactory</code>. While the first-level cache is cleared as soon as a session closes, the second-level cache can keep data around and make it available to all sessions that are opened from the same factory. This is why it plays such a huge role in performance tuning — it cuts down the number of times Hibernate has to hit the database for commonly accessed entities.</p>
+<p>When you load an entity for the first time, Hibernate fetches it from the database and then stores a copy of it in the second-level cache. This process is often called a <strong>put</strong> because the entity is being placed into the cache. If another session later requests the same entity by its identifier, Hibernate checks the cache first. If the data is present and still valid, it is returned directly from memory without a database round trip.</p>
+<p>The cache, of course, is not meant to be permanent storage. Hibernate makes sure that cached entities stay consistent with the database. When an entity is updated or deleted, the second-level cache entry is either updated or removed entirely. This process is called <strong>eviction</strong>. Depending on the cache provider and the caching strategy you configure (<em>read-only</em>, <em>read-write</em>, <em>nonstrict-read-write</em>, or <em>transactional</em>), the eviction behavior can vary. For example, a read-only cache never allows updates, while a read-write cache will carefully synchronize changes to prevent stale data.</p>
+<p>The <strong>query cache</strong> adds another layer on top of this. Instead of storing entities, it stores the IDs returned by a particular query. For example, if you run <code>select p from Product p where p.category = 'Books'</code>, Hibernate can cache the list of matching product IDs. When you run the same query again, Hibernate pulls the IDs from the query cache and then loads the actual entities from the second-level cache. If any of those entities are missing or have been evicted, Hibernate fetches them from the database and repopulates the cache. This two-step approach (query cache + second-level cache) ensures that results are both fast and consistent.</p>
+<p>Eviction is just as important for queries as it is for entities. When an entity changes in a way that could affect a cached query, Hibernate invalidates the query cache region so that subsequent queries won’t return stale results. Most cache providers also support time-based eviction (e.g., entries expire after a certain TTL) or size-based eviction (e.g., least recently used entries get cleared when the cache is full).</p>
+<p>To sum it up, the second-level cache works by storing entities across sessions, putting them into cache when first loaded, and evicting or refreshing them when updates happen. The query cache complements it by caching lists of entity IDs for repeated queries, relying on the second-level cache to serve the actual objects. Together, they allow Hibernate to serve more requests from memory, cut down database load, and significantly improve performance in read-heavy applications.</p>
+<h2 id="diveintocode">Dive into code</h2>
+<p>After getting familiar with the concept and how it works, let's dive into code. We begin by creating a Spring Boot project and try to connect to a MySQL server with Hibernate. Then, enable the Hibernate second-level cache and check the process.</p>
+<p>If you want to skip the coding process or prefer to see the final result, here is the <a href="https://github.com/ARTM2000/hibernate-cache-sample">code</a>.</p>
+<h3 id="initializeproject">Initialize project</h3>
+<p>First, have to create a Spring Boot project. I prefer a Gradle-Kotlin setup for the project and continue with it, but you can create the project with your desired setup from <a href="https://start.spring.io/">Spring Start Page</a>. Here is the final starter <a href="https://github.com/ARTM2000/hibernate-cache-sample/tree/initial-setup">code</a>.</p>
+<p>For the purpose of this blog post, we need to install these packages and also add <code>lombok</code> to decrease the boilerplate code:</p>
+<pre><code class="kotlin language-kotlin">implementation("org.springframework.boot:spring-boot-starter-actuator:3.5.5")
+implementation("org.springframework.boot:spring-boot-starter-data-jpa:3.5.5")
+implementation("org.springframework.boot:spring-boot-starter-jdbc:3.5.5")
+implementation("org.springframework.boot:spring-boot-starter-web:3.5.5")
+compileOnly("org.projectlombok:lombok:1.18.38")
+runtimeOnly("com.mysql:mysql-connector-j:8.4.0")
+annotationProcessor("org.projectlombok:lombok:1.18.38")
+testImplementation("org.springframework.boot:spring-boot-starter-test:3.5.5")
+testRuntimeOnly("org.junit.platform:junit-platform-launcher:1.13.0")
+</code></pre>
+<p>For the database connection, let's create a Docker Compose file with the name <code>compose.yaml</code> as follows:</p>
+<pre><code class="yaml language-yaml">services:
+  mysql:
+    image: mysql:8.0
+    container_name: mysql_container
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: hibernate_cache_db
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+    ports:
+      - "3306:3306"
+    volumes:
+      - hibernate_cache_mysql_data:/var/lib/mysql
+
+volumes:
+  hibernate_cache_mysql_data:
+</code></pre>
+<p>And run it with <code>docker compose up -d</code>.</p>
+<p>After that, add the following properties to the <code>src/main/resources/application.properties</code> to connect the Spring Boot App to the MySQL database:</p>
+<pre><code>spring.application.name=hibernate-cache
+server.port=8080
+
+spring.datasource.url=jdbc:mysql://localhost:3306/hibernate_cache_db
+spring.datasource.username=user
+spring.datasource.password=password
+spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+# not for production use. in production user none or validate
+spring.jpa.hibernate.ddl-auto=update
+# for check whether request hits the database or not
+spring.jpa.show-sql=true
+</code></pre>
+<p>Finally, you should be able to run the project through your IDE or by running the following:</p>
+<pre><code class="bash language-bash">./gradlew bootRun 
+</code></pre>
+<h3 id="addcrudroutesandserviceforthenoteentity">Add CRUD routes and service for the <code>note</code> entity</h3>
+<p>Consider that we want to store a table of <strong>Notes</strong> which includes <code>title</code>, <code>content</code>, and <code>archived</code> as a flag to whether the note is archived or not. Then, add a simple CRUD (Create, Read, Update, Delete) operation with a REST API to interact with it. Here is the final <a href="https://github.com/ARTM2000/hibernate-cache-sample/tree/basic-services">code</a>.</p>
+<p>So, first create an entity class for <code>Note</code> in <code>src/main/java/me/artm2000/hibernatecache/database/entity</code>. You should create the packages <code>database.entity</code> if you follow along. Finally, here is the <code>Note.java</code> entity class:</p>
+<pre><code class="java language-java">// src/main/java/me/artm2000/hibernatecache/database/entity/Note.java
+package me.artm2000.hibernatecache.database.entity;
+
+import jakarta.persistence.*;
+import lombok.Data;
+
+@Data
+@Entity
+@Table(name = "notes")
+public class Note {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    @Column(nullable = false)
+    private String title;
+    @Column(nullable = false, columnDefinition = "TEXT")
+    private String content;
+    @Column(nullable = false)
+    private Boolean archived = false;
+}
+</code></pre>
+<p>Next, we're going to create the <code>JpaRepository</code> for the <code>Note</code> entity in <code>src/main/java/me/artm2000/hibernatecache/database/repository</code> with the name <code>NoteRepository.java</code>. Here is the repository code:</p>
+<pre><code class="java language-java">// src/main/java/me/artm2000/hibernatecache/database/repository/NoteRepository.java
+package me.artm2000.hibernatecache.database.repository;
+
+import me.artm2000.hibernatecache.database.entity.Note;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
+import java.util.Optional;
+
+@Repository
+public interface NoteRepository extends JpaRepository&lt;Note, Long&gt; {
+    Optional&lt;Note&gt; findByTitle(String title);
+    List&lt;Note&gt; findAllByArchived(Boolean archived);
+}
+</code></pre>
+<p>After creating the entity and the repository, we're going to create the <code>NoteService</code> interface and <code>NoteServiceImpl</code> as its implementation as follows:</p>
+<pre><code class="java language-java">// src/main/java/me/artm2000/hibernatecache/service/NoteService.java
+package me.artm2000.hibernatecache.service;
+
+import me.artm2000.hibernatecache.database.entity.Note;
+
+import java.util.List;
+
+public interface NoteService {
+    Note createNote(Note note);
+
+    Note getNoteById(Long id);
+
+    Note getNoteByTitle(String title);
+
+    List&lt;Note&gt; getAllNonArchivedNotes();
+
+    List&lt;Note&gt; getAllNotes();
+
+    void updateNoteById(Long id, Note note);
+
+    void archiveNoteById(Long id);
+
+    void deleteNoteById(Long id);
+}
+</code></pre>
+<p>And the implementation:</p>
+<pre><code class="java language-java">// src/main/java/me/artm2000/hibernatecache/service/impl/NoteServiceImpl.java
+package me.artm2000.hibernatecache.service.impl;
+
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import me.artm2000.hibernatecache.database.entity.Note;
+import me.artm2000.hibernatecache.database.repository.NoteRepository;
+import me.artm2000.hibernatecache.service.NoteService;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
+
+@Slf4j
+@Service
+@RequiredArgsConstructor
+public class NoteServiceImpl implements NoteService {
+    private final NoteRepository noteRepository;
+
+    @Override
+    public Note createNote(Note note) {
+        return noteRepository.save(note);
+    }
+
+    @Override
+    public Note getNoteById(Long id) {
+        return noteRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public Note getNoteByTitle(String title) {
+        return noteRepository.findByTitle(title).orElse(null);
+    }
+
+    @Override
+    public List&lt;Note&gt; getAllNonArchivedNotes() {
+        return noteRepository.findAllByArchived(false);
+    }
+
+    @Override
+    public List&lt;Note&gt; getAllNotes() {
+        return noteRepository.findAll();
+    }
+
+    @Override
+    public void updateNoteById(Long id, Note note) {
+        Optional&lt;Note&gt; existingNote = noteRepository.findById(id);
+        if (existingNote.isPresent()) {
+            Note currentNote = existingNote.get();
+            currentNote.setTitle(note.getTitle());
+            currentNote.setContent(note.getContent());
+            currentNote.setArchived(note.getArchived());
+            noteRepository.save(currentNote);
+        }
+    }
+
+    @Override
+    public void archiveNoteById(Long id) {
+        Optional&lt;Note&gt; existingNote = noteRepository.findById(id);
+        if (existingNote.isPresent()) {
+            Note currentNote = existingNote.get();
+            currentNote.setArchived(true);
+            noteRepository.save(currentNote);
+        }
+    }
+
+    @Override
+    public void deleteNoteById(Long id) {
+        noteRepository.deleteById(id);
+    }
+}
+</code></pre>
+<p>Now, we can add the controller:</p>
+<pre><code class="java language-java">// src/main/java/me/artm2000/hibernatecache/controller/NoteController.java
+package me.artm2000.hibernatecache.controller;
+
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import me.artm2000.hibernatecache.database.entity.Note;
+import me.artm2000.hibernatecache.service.NoteService;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@Slf4j
+@RestController
+@RequiredArgsConstructor
+public class NoteController {
+    private final NoteService noteService;
+
+    // create notes
+    @PostMapping("/v1/notes")
+    public Note createNote(@RequestBody Note note) {
+        log.info("Creating note: {}", note);
+        return noteService.createNote(note);
+    }
+
+    // get one note by id
+    @GetMapping("/v1/notes/{id}")
+    public Note getNoteById(@PathVariable Long id) {
+        log.info("Getting note by id: {}", id);
+        return noteService.getNoteById(id);
+    }
+
+    // get one note by title
+    @GetMapping("/v1/notes/search")
+    public Note getNoteByTitle(@RequestParam String title) {
+        log.info("Getting note by title: {}", title);
+        return noteService.getNoteByTitle(title);
+    }
+
+    // get all non-archived notes
+    @GetMapping("/v1/notes")
+    public List&lt;Note&gt; getAllNonArchivedNotes() {
+        log.info("Getting all non-archived notes");
+        return noteService.getAllNonArchivedNotes();
+    }
+
+    // get all notes
+    @GetMapping("/v1/notes/all")
+    public List&lt;Note&gt; getAllNotes() {
+        log.info("Getting all notes");
+        return noteService.getAllNotes();
+    }
+
+    // update note by id
+    @PutMapping("/v1/notes/{id}")
+    public ResponseEntity&lt;Void&gt; updateNoteById(@PathVariable Long id, @RequestBody Note note) {
+        log.info("Updating note by id: {}", id);
+        noteService.updateNoteById(id, note);
+        return ResponseEntity.noContent().build();
+    }
+
+    // archive note by id
+    @PatchMapping("/v1/notes/{id}/archive")
+    public ResponseEntity&lt;Void&gt; archiveNoteById(@PathVariable Long id) {
+        log.info("Archiving note by id: {}", id);
+        noteService.archiveNoteById(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    // delete note by id
+    @DeleteMapping("/v1/notes/{id}")
+    public ResponseEntity&lt;Void&gt; deleteNoteById(@PathVariable Long id) {
+        log.info("Deleting note by id: {}", id);
+        noteService.deleteNoteById(id);
+        return ResponseEntity.noContent().build();
+    }
+}
+</code></pre>
+<p>Within the current state, you should be able to send requests and operate with the APIs. As we set <code>spring.jpa.show-sql=true</code>, you should see logs like <code>Hibernate: select n1_0.id,n1_0.archived,n1_0.content,n1_0.title from notes n1_0 where ....</code> for every API call that needs to read something from the database, and some others for other database operation hits.</p>
+<h3 id="chooseacacheproviderandsetitup">Choose a cache provider and set it up</h3>
+<p>The Hibernate second-level cache is only the API layer — by itself, it doesn’t actually store anything. To make it work, you need to plug in a cache provider. Hibernate supports several popular options such as Ehcache, Infinispan, Caffeine, and Redis.</p>
+<p>If you’re running a single-instance application, an in-memory cache like Ehcache or Caffeine is often enough. But in modern deployments, where applications usually run on multiple instances behind a load balancer, you need a distributed cache. Otherwise, each instance has its own isolated cache, and you lose the benefit of shared memory across nodes. That’s where Redis shines.</p>
+<p>Redis is an open-source, in-memory data store that is blazing fast and battle-tested in production. It can act as a centralized cache for all your app instances, ensuring that no matter which instance serves a request, the cache is consistent. With libraries like Redisson, you can integrate Redis with Hibernate’s second-level cache without too much hassle.</p>
+<h3 id="connecthibernatewithredis">Connect Hibernate with Redis</h3>
+<p>The easy-to-use way of connecting Redis as a Hibernate 2nd-level cache provider is to use the <code>redisson-hibernate</code> package, which has support for Hibernate <code>CacheFactory</code> by default. You have to install the following dependency to bring this package to the project:</p>
+<pre><code class="kotlin language-kotlin">implementation("org.redisson:redisson-hibernate-6:3.50.0")
+</code></pre>
+<p>It's important that the <code>redisson-hibernate-x</code> version follows the current Hibernate package version. So, if you're reading this blog post and you're using a different Hibernate version, you have to install the proper version with your Hibernate package version.</p>
+<p>To enable Hibernate second-level cache, you have to set these properties too:</p>
+<pre><code>spring.jpa.properties.hibernate.cache.use_second_level_cache=true
+spring.jpa.properties.hibernate.cache.use_query_cache=true
+</code></pre>
+<p>And to use Redisson region factory, you have to set this, too:</p>
+<pre><code>spring.jpa.properties.hibernate.cache.region.factory_class=org.redisson.hibernate.RedissonRegionFactory
+</code></pre>
+<p>For a more performance boost, you can also tell Hibernate to try to minimize the cache <strong>put</strong> operation with the following:</p>
+<pre><code>spring.jpa.properties.hibernate.cache.use_minimal_puts=true
+</code></pre>
+<p>Here are the properties to enable default properties in one place:</p>
+<pre><code>spring.jpa.properties.hibernate.cache.use_second_level_cache=true
+spring.jpa.properties.hibernate.cache.use_query_cache=true
+spring.jpa.properties.hibernate.cache.region.factory_class=org.redisson.hibernate.RedissonRegionFactory
+spring.jpa.properties.hibernate.cache.use_minimal_puts=true
+</code></pre>
+<p>To enable cache on an entity, you have to add the following annotation to the entity:</p>
+<pre><code class="java language-java">// src/main/java/me/artm2000/hibernatecache/database/entity/Note.java
+package me.artm2000.hibernatecache.database.entity;
+
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+// ...
+
+@Data
+@Entity
+@Table(name = "notes")
+@Cache(
+    usage = CacheConcurrencyStrategy.READ_WRITE // eviction strategy
+)
+public class Note {
+// ...
+}
+</code></pre>
+<p>There are 4 types of eviction strategies:</p>
+<ul>
+<li><p><strong>Read-Only</strong></p></li>
+<li><p>Best for reference data that never changes (e.g., country codes).</p></li>
+<li><p>Entities are cached and never updated.</p></li>
+<li><p>Any attempt to update results in an exception.</p></li>
+<li><p><strong>Read-Write</strong></p></li>
+<li><p>Safe for mutable entities.</p></li>
+<li><p>Uses “soft locks” to ensure only one transaction updates a cached entry at a time.</p></li>
+<li><p>Ensures strong consistency but with some performance cost.</p></li>
+<li><p><strong>Nonstrict-Read-Write</strong></p></li>
+<li><p>Allows cached entities to become stale for a short time.</p></li>
+<li><p>No strict locking; entries are evicted on update.</p></li>
+<li><p>Offers better performance but weaker consistency.</p></li>
+<li><p><strong>Transactional</strong></p></li>
+<li><p>Requires a fully transactional cache provider (e.g., JTA with Infinispan).</p></li>
+<li><p>Guarantees the strongest consistency between cache and database.</p></li>
+<li><p>Mostly used in advanced enterprise setups.</p></li>
+</ul>
+<p>You can pick one of them based on your requirement.</p>
+<h4 id="customizeregionname">Customize region name</h4>
+<p>Hibernate by default converts the entity class reference to its region name (e.g., <code>me.artm2000.hibernatecache.database.entity.Note</code> for Note entity).  You can customize it with <code>@Cache</code> and pass the <code>region</code> value to it as below:</p>
+<pre><code class="java language-java">// src/main/java/me/artm2000/hibernatecache/database/entity/Note.java
+package me.artm2000.hibernatecache.database.entity;
+
+...
+@Cache(
+    usage = CacheConcurrencyStrategy.READ_WRITE,
+    region = "entity.notes" // new region name
+)
+public class Note {
+// ...
+}
+</code></pre>
+<p>In this example, we set the region name to <code>entity.note</code>.</p>
+<h4 id="configurequerycache">Configure query cache</h4>
+<p>Here is an example for enabling the Hibernate query cache on <code>NoteRepository</code>:</p>
+<pre><code class="java language-java">// src/main/java/me/artm2000/hibernatecache/database/repository/NoteRepository.java
+package me.artm2000.hibernatecache.database.repository;
+
+// ...
+import jakarta.persistence.QueryHint;
+import org.springframework.data.jpa.repository.QueryHints;
+// ...
+
+@Repository
+public interface NoteRepository extends JpaRepository&lt;Note, Long&gt; {
+    @QueryHints({
+        @QueryHint(name = "org.hibernate.cacheable", value = "true"), // enable query cache for this query
+        @QueryHint(name = "org.hibernate.cacheRegion", value = "query.findNotesByTitle") // set region name
+    })
+    Optional&lt;Note&gt; findByTitle(String title);
+
+    @Override // add query cache on default query methods
+    @QueryHints({
+        @QueryHint(name = "org.hibernate.cacheable", value = "true"),
+        @QueryHint(name = "org.hibernate.cacheRegion", value = "query.findAllNotes")
+    })
+    List&lt;Note&gt; findAll();
+
+    @QueryHints({
+        @QueryHint(name = "org.hibernate.cacheable", value = "true"),
+        @QueryHint(name = "org.hibernate.cacheRegion", value = "query.findAllNotesByArchived")
+    })
+    List&lt;Note&gt; findAllByArchived(Boolean archived);
+}
+</code></pre>
+<blockquote>
+  <p>It's totally recommended to set a region name as much as possible and prevent using the default region name for more control and efficiency.</p>
+</blockquote>
+<h3 id="configuretheredisclient">Configure the Redis Client</h3>
+<p>By default, <code>org.redisson.hibernate.RedissonRegionFactory</code> reads its configuration from <code>src/main/resources/redisson.json</code> or <code>src/main/resources/redisson.yaml</code>, and you can configure it with this file. <a href="https://redisson.pro/docs/configuration/#using-yaml">Here is more info</a>.</p>
+<p>It should work if you have the same properties for different deployments and running environments, but unfortunately, it's not a common case, and the connection properties, credentials, host, and many more parameters are different for each environment. So, suppose you plan to run the application with different profiles (e.g., local, demo, or production). In that case, you will face some problems as this region factory did not load in the scope of the Spring Boot app, and the related profile properties did not affect anything. </p>
+<p>So, to solve this issue, you can create a new <code>RegionFactory</code> class that extends the <code>RedissonRegionFactory</code> and override the <code>createRedissonClient</code> method with some tricks to load properties from <code>application.properties</code> or load the <em>active profile</em> configuration.</p>
+<p>But before all, we need a Redisson client to load the configuration from our desired source, like <code>application.properties</code>. As its way clean to use this configuration as <strong>Bean</strong> for further Redis usecases, we create <strong>configuration</strong> class as follows with an static method to build a client and use it into bean method:</p>
+<pre><code class="java language-java">// src/main/java/me/artm2000/hibernatecache/common/config/RedisConfig.java
+package me.artm2000.hibernatecache.common.config;
+
+import org.redisson.Redisson;
+import org.redisson.api.RedissonClient;
+import org.redisson.config.Config;
+import org.redisson.config.SingleServerConfig;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
+public class RedisConfig {
+    @Value("${spring.data.redis.host:#{null}}")
+    private String redisHost;
+    @Value("${spring.data.redis.port:#{null}}")
+    private String redisPort;
+    @Value("${spring.data.redis.database:0}")
+    private int redisDatabase;
+    @Value("${spring.data.redis.password:#{null}}")
+    private String redisPassword;
+
+    @Bean(destroyMethod = "shutdown")
+    public RedissonClient redissonClient() {
+        return getRedissonClient(redisHost, redisPort, redisDatabase, redisPassword, false);
+    }
+
+    public static RedissonClient getRedissonClient(String host, String port, int database, String password, boolean useSsl) {
+        Config config = new Config();
+        SingleServerConfig serverConfig = config.useSingleServer()
+            .setAddress((useSsl ? "rediss://" : "redis://") + host + ":" + port)
+            .setDatabase(database)
+            .setKeepAlive(true);
+
+        if (!password.isBlank()) {
+            serverConfig.setPassword(password);
+        }
+        return Redisson.create(config);
+    }
+}
+</code></pre>
+<p>Then use the <code>getRedissonClient</code> static method in a new class with the name <code>CustomizeRegionFactory</code> that extends Redisson's <code>RedissonRegionFactory</code> class to override the <code>createRedissonClient</code> to create a Redisson client in our own way:</p>
+<pre><code class="java language-java">// src/main/java/me/artm2000/hibernatecache/common/CustomizeRegionFactory.java
+package me.artm2000.hibernatecache.common;
+
+import me.artm2000.hibernatecache.common.config.RedisConfig;
+import org.hibernate.boot.registry.StandardServiceRegistry;
+import org.redisson.api.RedissonClient;
+import org.redisson.hibernate.RedissonRegionFactory;
+
+import java.util.Map;
+
+public class CustomizeRegionFactory extends RedissonRegionFactory {
+    @Override
+    @SuppressWarnings("unchecked")
+    protected RedissonClient createRedissonClient(StandardServiceRegistry registry, Map properties) {
+        String host = (String) properties.getOrDefault("spring.data.redis.host", "localhost");
+        String port = (String) properties.getOrDefault("spring.data.redis.port", "6379");
+        String databaseStr = (String) properties.getOrDefault("spring.data.redis.database", "0");
+        String password = (String) properties.getOrDefault("spring.data.redis.password", "");
+
+        return RedisConfig.getRedissonClient(host, port, Integer.parseInt(databaseStr), password, false);
+    }
+}
+</code></pre>
+<p>I used the <code>spring.data.redis.*</code> properties, but you can use different keys. </p>
+<p>After all sets, we have to change the <code>spring.jpa.properties.hibernate.cache.region.factory_class</code> property to our new class: <code>me.artm2000.hibernatecache.common.CustomizeRegionFactory</code>. Like below:</p>
+<pre><code>spring.jpa.properties.hibernate.cache.region.factory_class=me.artm2000.hibernatecache.common.CustomizeRegionFactory
+</code></pre>
+<p>We need to make some changes to our Docker Compose file to have a Redis instance running. Here is the final <code>compose.yaml</code> file:</p>
+<pre><code class="yaml language-yaml">services:
+  mysql:
+    image: mysql:8.0
+    container_name: mysql_container
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: hibernate_cache_db
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+    ports:
+      - "3306:3306"
+    volumes:
+      - hibernate_cache_mysql_data:/var/lib/mysql
+
+  # add this part to the last compose.yaml file
+  redis:
+    image: redis:8
+    container_name: redis_container
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+
+volumes:
+  hibernate_cache_mysql_data:
+  redis_data:
+</code></pre>
+<p>You're now able to run the Spring Boot application with the following properties and see everything works together:</p>
+<pre><code># src/main/resources/application.properties
+
+spring.data.redis.host=localhost
+spring.data.redis.port=6379
+spring.data.redis.password=
+spring.data.redis.database=0
+</code></pre>
+<p>Here is the <a href="https://github.com/ARTM2000/hibernate-cache-sample/tree/custom-region-factory">final code</a> for this part.</p>
+<h4 id="loadprofilerelatedproperties">Load profile related properties</h4>
+<p>Assume that you use only <em>one profile per deployment</em> (e.g., local, demo, or production). We have to check the active profile (if it exists) and load the related properties or config file (like YAML, as your preference). So, let's add the following method to the <code>src/main/java/me/artm2000/hibernatecache/common/CustomizeRegionFactory.java</code>:</p>
+<pre><code class="java language-java">// src/main/java/me/artm2000/hibernatecache/common/CustomizeRegionFactory.java
+
+    @SuppressWarnings("rawtypes,unchecked")
+    private void loadActiveProfile(Map properties) {
+        String activeProfile = System.getProperty("spring.profiles.active");
+        if (activeProfile == null || activeProfile.isBlank()) {
+            activeProfile = System.getenv("SPRING_PROFILES_ACTIVE");
+        }
+        if (activeProfile == null) return;
+
+        try {
+            for (String property : Arrays.stream((new ClassPathResource(
+                    String.format(
+                        "application-%s.properties",
+                        activeProfile
+                    )))
+                    .getContentAsString(StandardCharsets.UTF_8)
+                    .split("\n"))
+                .filter(line -&gt; line.trim().contains("=") &amp;&amp; !line.trim().startsWith("#"))
+                .toList())
+            {
+                String[] keyValue = property.trim().split("=", 2);
+                properties.put(keyValue[0], keyValue[1]);
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+</code></pre>
+<p>As you can see, the <code>loadActiveProfile</code> method receives the properties map and tries to put the properties for the active profile into it from <code>application-&lt;profile&gt;.properties</code>. Now, if there is no related properties file for the active profile, it throws an error as expected. You could change this behavior if you want.</p>
+<p>Next, you have to call this method at the beginning of the <code>createRedissonClient</code> method, like below:</p>
+<pre><code class="java language-java">// src/main/java/me/artm2000/hibernatecache/common/CustomizeRegionFactory.java
+
+   protected RedissonClient createRedissonClient(StandardServiceRegistry registry, Map properties) {
+        loadActiveProfile(properties);
+        // ....
+   }
+</code></pre>
+<p>For other property file types like YAML, you have to replace the logic with your own.</p>
+<p>Here is the stage <a href="https://github.com/ARTM2000/hibernate-cache-sample/tree/load-config-by-profile">final code</a>. You have to run this with <code>spring.profiles.active=local</code> from IDE or with the following command:</p>
+<pre><code class="bash language-bash">./gradlew bootRun --args='--spring.profiles.active=local'
+</code></pre>
+<h3 id="bringitalltogether">Bring it all together! 😎</h3>
+<p>With all these setups, we are now able to use Hibernate's second-level cache on API calls and further use cases. Start with creating a note:</p>
+<pre><code class="bash language-bash">curl -X POST "http://localhost:8080/v1/notes" \
+    -H 'Content-Type: application/json' \
+    --data '{"title":"note 1", "content":"this is first content"}'
+</code></pre>
+<p>Now, if you fetch the note via:</p>
+<pre><code class="bash language-bash">curl "http://localhost:8080/v1/notes"
+</code></pre>
+<p>You will see this log in your running application that demonstrates Hibernate hits the database to resolve the query:</p>
+<pre><code> ... Getting all non-archived notes
+Hibernate: select n1_0.id,n1_0.archived,n1_0.content,n1_0.title from notes n1_0 where n1_0.archived=?
+</code></pre>
+<p><strong>But, here is MAGIC</strong>. If you do the same action, you will receive the response way more faster than before, and no Hibernate SQL query log appears. You can test it yourself and see the result.</p>
+<p>Let's add another note:</p>
+<pre><code class="bash language-bash">curl -X POST "http://localhost:8080/v1/notes" \
+    -H 'Content-Type: application/json' \
+    --data '{"title":"note 2", "content":"this is second content"}'
+</code></pre>
+<p>By trying to get notes again, you see that, as the related cache had been evicted, another Hibernate SQL query log showed up, and by doing the same, the new result was fetched from cache, and no database hit occurred.</p>
+<h2 id="wrapitup">Wrap it up!</h2>
+<p>While using the Hibernate second-level cache will help you in a read-heavy application and remove the cost of manual cache eviction, there are some points that you should be aware of:</p>
+<h3 id="1cacheisnotasilverbullet">1. Cache is not a silver bullet</h3>
+<p>The 2nd-level cache <strong>reduces database hits</strong>, but it doesn’t replace the database.</p>
+<ul>
+<li>It helps for read-heavy workloads with relatively static data.</li>
+<li>It <strong>doesn’t help much</strong> for write-heavy workloads, since frequent updates trigger evictions.</li>
+</ul>
+<h3 id="2cacheinvalidationandconsistency">2. Cache invalidation and consistency</h3>
+<p>Hibernate invalidates cached entities or query results when you update data.</p>
+<ul>
+<li>Entities are evicted when modified, inserted, or deleted.</li>
+<li>Query caches rely on <code>UpdateTimestampsCache</code>, so any update on a table flushes related query results.</li>
+<li>This means query cache is best for <strong>stable, rarely-changing queries</strong>.</li>
+</ul>
+<p>If you need <strong>strong consistency</strong>, be careful — cache + DB might get out of sync in clustered deployments unless you use a distributed cache like Redis, Infinispan, or Hazelcast.</p>
+<h3 id="3firstlevelcachealwayscomesfirst">3. First-level cache always comes first</h3>
+<p>Each Hibernate <code>Session</code> has its own <strong>first-level cache</strong>, which is mandatory and cannot be disabled.</p>
+<ul>
+<li>The 2nd-level cache only kicks in <strong>between sessions</strong>.</li>
+<li>So if you’re repeatedly loading the same entity in one transaction, it comes from the session cache, not the 2nd-level cache.</li>
+</ul>
+<h3 id="4choosecacheableentitieswisely">4. Choose cacheable entities wisely</h3>
+<p>Don’t mark everything as cacheable.</p>
+<ul>
+<li>Cache <strong>read-mostly entities</strong> (e.g., products, reference data, categories, user profiles).</li>
+<li>Avoid caching highly volatile data (e.g., orders, transactions, stock levels).</li>
+<li>If you cache entities that change frequently, you’ll just cause unnecessary evictions and network chatter.</li>
+</ul>
+<h3 id="5querycacheistricky">5. Query cache is tricky</h3>
+<p>The query cache doesn’t cache full entities, only <strong>IDs of matching rows</strong>.</p>
+<ul>
+<li>Those IDs are later resolved via the entity cache.</li>
+<li>If the entity isn’t cached, Hibernate still hits the DB.</li>
+<li>Also, the query cache is easily invalidated, so don’t rely on it for hot-changing data.</li>
+</ul>
+<h3 id="6cacheprovidermatters">6. Cache provider matters</h3>
+<ul>
+<li><strong>Ehcache / Caffeine</strong>: good for single-instance deployments.</li>
+<li><strong>Redis / Hazelcast / Infinispan</strong>: better for clustered or multi-node apps.</li>
+<li>If you scale horizontally, always use a <strong>distributed cache</strong> to avoid stale data issues.</li>
+</ul>
+<h3 id="7memoryandevictionstrategy">7. Memory and eviction strategy</h3>
+<ul>
+<li>2nd-level cache can grow large → watch your memory usage.</li>
+<li>Tune eviction strategy (LRU, LFU, TTL) to balance freshness and memory usage.</li>
+<li>In Redis/Redisson, define per-region TTLs (e.g., cache products for 5 min, categories for 1 hour). You can define each region config within application.properties or a profile-related one like these (you have to replace <code>&lt;region-name&gt;</code> with your target region name):<ul>
+<li><code>spring.jpa.properties.hibernate.cache.redisson.&lt;region-name&gt;.eviction.max_entries</code></li>
+<li><code>spring.jpa.properties.hibernate.cache.redisson.&lt;region-name&gt;.expiration.time_to_live</code></li>
+<li><code>spring.jpa.properties.hibernate.cache.redisson.&lt;region-name&gt;.expiration.max_idle_time</code></li></ul></li>
+<li>In case of no specific region name configuration, or to globally configure, set the following for <code>query</code>, <code>collection</code>, and <code>naturalid</code> as you could set for region configuration.</li>
+</ul>
+<h3 id="8lazycollectionsandassociations">8. Lazy collections and associations</h3>
+<p>Caching works differently for collections (<code>@OneToMany</code>, <code>@ManyToMany</code>).</p>
+<ul>
+<li>You must explicitly mark collections with <code>@Cache</code>.</li>
+<li>Collections can be cached separately from their parent entity.</li>
+<li>But: cache invalidation is more expensive for associations, so use it cautiously.</li>
+</ul>
+<h3 id="9batchingandcachehotspotting">9. Batching and cache “hotspotting”</h3>
+<p>If many requests load the same entity (like a <code>Currency</code> or <code>Country</code> object), that’s perfect for cache.
+But if you have <strong>batch inserts/updates</strong>, you might invalidate the cache too frequently — negating the benefit.</p>
+<h3 id="10monitoringandtuningareessential">10. Monitoring and tuning are essential</h3>
+<ul>
+<li>Enable Hibernate’s cache stats (<code>hibernate.generate_statistics=true</code>) and check hit/miss ratios.</li>
+<li>If the hit rate is low, caching might be hurting rather than helping.</li>
+<li>Tools like RedisInsight or JMX MBeans can help you see if entities are really being reused.</li>
+</ul>
+<p>Last word, Hibernate’s 2nd-level cache is a <strong>performance optimization</strong>, not a guaranteed speed-up. Use it selectively for stable, read-heavy data. Choose the right provider (Redis for clusters, Ehcache/Caffeine for single-node), tune eviction policies, and always monitor hit ratios to make sure it’s helping, not hurting.</p>
+<p>Hope you enjoy this content, and it helps you with better development and maintenance.</p>
+                </div>
+                <div class="social-wrapper"
+                    style="display: flex; justify-content: center;"
+                >
+                    <div 
+                    class="my-2 border border-2 d-inline-block pr-3 mx-auto"
+                    style="border-radius: 10px; cursor: pointer;"
+                    >
+                    <div 
+                        class="d-inline-block p-2 my-2" 
+                        style="border-radius: 10px; cursor: pointer;"
+                    >
+                        <div class="d-inline-block mx-2">
+                            <img 
+                                src="/img/linkedin-social.png" 
+                                alt="linkedin_share" 
+                                width="25px" 
+                                onclick="window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(window.location.href)}`)">
+                        </div>
+                        <div class="d-inline-block mx-2">
+                            <img 
+                                src="/img/twitter.png" 
+                                alt="twitter_share" 
+                                width="20px" 
+                                onclick="window.open(`https://twitter.com/intent/tweet?url=${encodeURIComponent(window.location.href)}&text=${encodeURIComponent('Check out this!')}`)">
+                        </div>
+                        <div class="d-inline-block mx-2">
+                            <img 
+                                src="/img/telegram.png" 
+                                alt="telegram_share" 
+                                width="25px"
+                                onclick="window.open(`https://t.me/share/url?url=${encodeURIComponent(window.location.href)}&text=${encodeURIComponent('Check out this!')}`)">
+                        </div>
+                    </div>
+                    <div class="d-inline-block my-2">|</div>
+                    <div class="d-inline-block">
+                        
+                        <p 
+                            id="post-link"
+                            class="d-inline-block my-2 py-2 px-2" 
+                            style="border-radius: 10px; cursor: pointer; width: 120px;"
+                            onclick="document.execCommand('copy')"
+                        >
+                            <img src="/img/copy.png" style="margin-right: 3px;" width="25px" alt="copy" /><span id="link"> Copy link</span>
+                        </p>
+                    </div>
+                </div>
+                </div>
+                <a href="https://github.com/ARTM2000" style="text-decoration: none;" target="_blank" rel="follow">
+    <div class="row mt-4 mb-2 ml-2">
+        <div class="col-2 col-sm-2 col-lg-1 px-1">
+            <img class="d-block" src="https://avatars.githubusercontent.com/u/50656840?v=4" width="55px" style="border-radius: 30px; margin-left: 10px;" />
+        </div>
+        <div class="col-9 px-3 px-sm-1 px-md-1 px-lg-4 px-xl-1">
+            <p class="text-body-secondary my-0 mx-md-0" style="font-size: 18px;">Alireza Tanoomandian</p>
+            <small class="text-body-secondary" >2025-09-05</small>
+        </div>
+    </div>
+</a>
+<hr>
+                <div class="row">
+                    <div class="col-12 col-md-6 my-3">
+                        
+                            <a href="https://m8e.ir/blog/2536308343-5-ways-to-create-an-http-server-in-golang.html" style="text-decoration: none;">
+                                <div class="px-3 py-3 border border-1 text-body-emphasis" style="border-radius: 10px;">
+                                    <h5>5 ways to create an HTTP server in Golang</h5>
+                                    <p class="my-1">&#171; Previous Post</p>
+                                </div>
+                            </a>
+                        
+                    </div>
+                    <div class="col-12 col-md-6 my-3">
+                        
+                    </div>
+                </div>
+                <button 
+    onclick="window.location = 'https://m8e.ir'" 
+    class="btn text-secondary d-block my-4 p-0" 
+    style="cursor: pointer; font-size: .9em;"
+    >&#8592; Back to home page</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.querySelectorAll(".content a").forEach(a => {
+            if (a.href.indexOf("https://m8e.ir") > -1) {
+                a.rel = "follow"
+            } else {
+                a.target = "_blank";
+                a.rel = "nofollow";
+            }
+        });
+
+        document.querySelectorAll(".content blockquote").forEach(b => {
+            if (b.children.length > 1) {
+                const blockQuotes = []
+                for (let i = 0; i < b.children.length; i++) {
+                    const newB = document.createElement("blockquote")
+                    const ch = document.createElement(b.children[i].tagName.toLowerCase())
+                    ch.innerHTML = b.children[i].innerHTML;
+                    newB.appendChild(ch);
+                    blockQuotes.push(newB);
+                }
+
+                b.replaceWith(...blockQuotes);
+            }
+        });
+
+        document.getElementById('post-link').addEventListener('copy', (e) => {
+            e.preventDefault();
+            if (e.clipboardData) {
+                e.clipboardData.setData('text/plain', 'https://m8e.ir/l/?p=3384535739')
+                document.getElementById('link').innerText = " Copied!"
+                setTimeout(() => {
+                    document.getElementById('link').innerText = " Copy Link";
+                }, 1000)
+            }
+        });
+
+        document.querySelectorAll('.content img').forEach(img => {
+            const next = img.nextElementSibling;
+            if (!!next && next.tagName.toLowerCase() === "small") {
+                next.style = "display: block; font-size: 13px"
+                next.className += " text-body-secondary";
+            }
+        })
+
+        const fullSummary = "Hibernate comes with a powerful caching mechanism that can dramatically cut down on database queries when used correctly. By default, every Session in Hibernate has a built-in first-level cache, but that only lives for the duration of the session. The second-level cache extends this capability across sessions and even across application nodes when backed by a distributed provider like Redis. In a Spring Boot project, Hibernate’s second-level cache is often a better choice than the generic Spring Boot cache because it understands entity lifecycle events, manages evictions automatically, and is tightly integrated with Hibernate’s query and entity management.";
+        const previewSummary = "Hibernate comes with a powerful caching mechanism that can dramatically cut down on database queries when used correctly. By default, every Session in Hibernate has a built-in first-level cache, but ...";
+        document.getElementById('summary-action').addEventListener('click', (e) => {
+            console.log(e.target.innerText);
+            if (e.target.innerText === 'more') {
+                document.getElementById('summary-content').innerText = fullSummary;
+                e.target.innerText = 'close';
+            } else {
+                document.getElementById('summary-content').innerText = previewSummary;
+                e.target.innerText = 'more';
+            }
+        })
+    </script>
+    <footer>
+	<div class="container mt-5">
+		<hr />
+        <div class="row my-4 px-1">
+            <div class="col-12">
+                <code class="text-body-emphasis">Created with ☕. Powered by GitHub</code>
+            </div>
+        </div>
+        <div class="d-inline-block px-2">
+            <a href="https://github.com/ARTM2000" target="_blank">
+                <img src="https://m8e.ir/img/github-mark-white.png" width="30px" alt="github" />
+            </a>
+        </div>
+        <div class="d-inline-block px-2">
+            <a href="https://linkedin.com/in/alirezatanoomandian" target="_blank">
+                <img src="https://m8e.ir/img/linkedin.png" width="30px" alt="linkedin" />
+            </a>
+        </div>
+        <br><br><br><br><br>
+	</div>
+	<script defer>
+		hljs.highlightAll();
+	</script>
+	<script defer>
+		// const darkModeActive = document.querySelector('html').dataset.bsTheme === 'dark'
+		document.querySelectorAll("table").forEach((element) => {
+			element.className +=
+				" table table-striped table-bordered border border-3";
+		});
+		document.querySelectorAll("tbody").forEach((element) => {
+			element.className += " table-group-divider";
+		});
+	</script>
+</footer>
+
+</body>
