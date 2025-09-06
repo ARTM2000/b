@@ -65,6 +65,14 @@ pre code {
 	border-radius: 10px;
 }
 
+code:not(.hljs) {
+	background: black;
+	padding: 2px 4px;
+	border-radius: 4px;
+	font-family: monospace;
+	color: #c5c7c5;
+}
+
 blockquote {
 	font-size: 1.4em;
 	width: 100%;
